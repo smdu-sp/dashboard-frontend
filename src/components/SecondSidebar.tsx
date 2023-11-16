@@ -1,28 +1,19 @@
 import * as React from 'react';
-import { Link, ListItemButton, ListItemDecorator, ListItemContent, ListItem, List, Sheet, Box } from '@mui/joy';
-import { AppRegistration, Home } from '@mui/icons-material';
-
+import { Link, ListItemButton, ListItemDecorator, ListItemContent, ListItem, List, Sheet, Box, SvgIcon } from '@mui/joy';
+import { menu } from '../app/menu';
 import { closeSidebar } from '../utils';
 
-const pages = [
-  {
-    title: 'Página Inicial',
-    href: '/',
-    name: '/',
-    icon: <Home />,
-  },
-  {
-    title: 'Cadastro',
-    href: '/cadastro',
-    name: '/cadastro',
-    icon: <AppRegistration />,
-  },
-];
-
 export default function SecondSidebar({
-  pagina
+  pagina,
+  menuOverride,
 } : {
   pagina?: string;
+  menuOverride?: {
+    title: string;
+    href: string;
+    name: string;
+    icon: any;
+  }[];
 }) {
   return (
     <React.Fragment>
@@ -77,15 +68,31 @@ export default function SecondSidebar({
             '--List-gap': '6px',
           }}
         >
-          {pages.map((page) => (
+          {menuOverride ?
+            menuOverride.map((page) => (
+              <Link 
+                href={page.href}
+                underline='none'
+              >
+                <ListItem sx={{ width: '100%'}}>
+                    <ListItemButton selected={pagina===page.name}>
+                      <ListItemDecorator>
+                        <SvgIcon component={page.icon} />
+                      </ListItemDecorator>
+                      <ListItemContent>{page.title}</ListItemContent>
+                    </ListItemButton>
+                </ListItem>
+              </Link>
+            ))
+          : menu.map((page) => (
             <Link 
               href={page.href}
               underline='none'
             >
               <ListItem sx={{ width: '100%'}}>
                   <ListItemButton selected={pagina===page.name}>
-                    <ListItemDecorator>
-                      {page.icon}
+                    <ListItemDecorator >
+                      <SvgIcon component={page.icon} />
                     </ListItemDecorator>
                     <ListItemContent>{page.title}</ListItemContent>
                   </ListItemButton>

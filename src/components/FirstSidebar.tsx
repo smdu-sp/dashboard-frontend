@@ -7,9 +7,9 @@ import ListItemButton from '@mui/joy/ListItemButton';
 import Sheet from '@mui/joy/Sheet';
 import Image from 'next/image';
 import iconLogo from '@/assets/sis-icon.png';
-import iconLogo2 from '@/assets/sis-icon2.png';
 import { toggleSidebar } from '../utils';
 import { Button, Tooltip } from '@mui/joy';
+import { Menu } from '@mui/icons-material';
 
 export default function FirstSidebar() {
   return (
@@ -47,11 +47,16 @@ export default function FirstSidebar() {
         }}
       />
       <List size="sm" sx={{ '--ListItem-radius': '6px', '--List-gap': '8px' }}>
-        <ListItem onClick={() => toggleSidebar()}>
-          <ListItemButton sx={{ p: 1, borderRadius: 6 }}>
-            <Image src={iconLogo} height={24} alt="icon-logo" />
-          </ListItemButton>
-        </ListItem>
+        <ListItemButton 
+          sx={{ p: 1, borderRadius: 6, 
+          }}
+          onClick={() => toggleSidebar()}
+        >
+          <Menu sx={{ fontSize: 24 }} />
+        </ListItemButton>
+        <ListItemButton sx={{ p: 1, borderRadius: 6 }}>
+          <Image src={iconLogo} height={24} alt="icon-logo" />
+        </ListItemButton>
       </List>  
       <Tooltip title="Sair" arrow placement="top" >
         <Button

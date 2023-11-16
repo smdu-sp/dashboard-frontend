@@ -9,14 +9,21 @@ export default function Content({
     children,
     titulo,
     pagina,
-    breadcrumbs
+    breadcrumbs,
+    menuOverride,
 } : {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     titulo?: string;
     pagina?: string;
     breadcrumbs: {
       label: string;
       href: string;
+    }[];
+    menuOverride?: {
+      title: string;
+      href: string;
+      name: string;
+      icon: any;
     }[];
 }) {
   return (
@@ -25,6 +32,7 @@ export default function Content({
         <FirstSidebar />
         <SecondSidebar
             pagina={pagina}
+            menuOverride={menuOverride}
         />
         <Box
           component="main"
