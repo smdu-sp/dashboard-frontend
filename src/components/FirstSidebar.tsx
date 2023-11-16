@@ -9,9 +9,14 @@ import Image from 'next/image';
 import iconLogo from '@/assets/sis-icon.png';
 import { toggleSidebar } from '../utils';
 import { Button, Tooltip } from '@mui/joy';
-import { Menu } from '@mui/icons-material';
+import { Close, Menu } from '@mui/icons-material';
 
 export default function FirstSidebar() {
+  const slideIn = window
+    .getComputedStyle(document.documentElement)
+    .getPropertyValue('--SideNavigation-slideIn');
+
+  document.body.style.removeProperty('overflow');
   return (
     <Sheet
       className="FirstSidebar"
@@ -39,26 +44,23 @@ export default function FirstSidebar() {
         borderColor: 'divider',
       }}
     >
-      <GlobalStyles
-        styles={{
-          ':root': {
-            '--FirstSidebar-width': '68px',
-          },
-        }}
-      />
+      <GlobalStyles styles={{ ':root': { '--FirstSidebar-width': '68px' }}} />
       <List size="sm" sx={{ '--ListItem-radius': '6px', '--List-gap': '8px' }}>
         <ListItemButton 
-          sx={{ p: 1, borderRadius: 6, 
+          sx={{
+            p: 1,
+            borderRadius: 6,
+            display: { xs: 'flex', lg: 'none' },
           }}
           onClick={() => toggleSidebar()}
         >
-          <Menu sx={{ fontSize: 24 }} />
+          {slideIn ? <Close sx={{ fontSize: 24 }} /> : <Menu sx={{ fontSize: 24 }} /> }
         </ListItemButton>
-        <ListItemButton sx={{ p: 1, borderRadius: 6 }}>
+        <ListItemButton sx={{ p: 1, borderRadius: 6, mt: { lg: 0 }}} href='/' onClick={() => window.location.href = '/'}>
           <Image src={iconLogo} height={24} alt="icon-logo" />
         </ListItemButton>
       </List>  
-      <Tooltip title="Sair" arrow placement="top" >
+      <Tooltip title="Sair" arrow placement="top">
         <Button
           size="sm"
           variant="outlined"
