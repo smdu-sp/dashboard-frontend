@@ -16,7 +16,7 @@ export default function SecondSidebar({
   }[];
 }) {
   return (
-    <React.Fragment>
+    <>
       <Box
         className="SecondSidebar-overlay"
         sx={{
@@ -73,8 +73,9 @@ export default function SecondSidebar({
               <Link 
                 href={page.href}
                 underline='none'
+                key={page.name}
               >
-                <ListItem sx={{ width: '100%'}}>
+                <ListItem sx={{width: '100%'}}>
                     <ListItemButton selected={pagina===page.name}>
                       <ListItemDecorator>
                         <SvgIcon component={page.icon} />
@@ -88,8 +89,9 @@ export default function SecondSidebar({
             <Link 
               href={page.href}
               underline='none'
+              key={page.name}
             >
-              <ListItem sx={{ width: '100%'}}>
+              <ListItem sx={{width: '100%'}}>
                   <ListItemButton selected={pagina===page.name}>
                     <ListItemDecorator >
                       <SvgIcon component={page.icon} />
@@ -101,6 +103,6 @@ export default function SecondSidebar({
           ))}
         </List>
       </Sheet>
-    </React.Fragment>
+    </>
   );
 }
