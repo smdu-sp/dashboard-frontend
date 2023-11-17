@@ -39,8 +39,7 @@ export default function Header() {
       />
       <IconButton
         onClick={() => toggleSidebar()}
-        variant="outlined"
-        color="neutral"
+        color="primary"
         size="sm"
       >
         {sidebarStatus ? <Menu sx={{ fontSize: 24 }} /> : <Close sx={{ fontSize: 24 }} />}

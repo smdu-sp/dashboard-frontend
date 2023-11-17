@@ -6,5 +6,11 @@ export const menu = [
         href: '/',
         name: '/',
         icon: Home,
+    },
+    {
+        title: 'Usuários',
+        href: '/usuarios',
+        name: '/usuarios',
+        icon: Person,
     }
 ]

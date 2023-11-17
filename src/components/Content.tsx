@@ -16,7 +16,7 @@ export default function Content({
     children?: React.ReactNode;
     titulo?: string;
     pagina?: string;
-    breadcrumbs: {
+    breadcrumbs?: {
       label: string;
       href: string;
     }[];
@@ -28,7 +28,8 @@ export default function Content({
     }[];
 }) {
   useEffect(() => {
-    document.title = titulo + ' | Base';
+    console.log(process.env.NEXT_PUBLIC_PROJECT_NAME);
+    document.title = titulo + ' | ' + (process.env.NEXT_PUBLIC_PROJECT_NAME || 'Base');
   }, []);
   return (
     <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
@@ -65,7 +66,7 @@ export default function Content({
           }}
         >
           <SecondHeader
-            breadcrumbs={breadcrumbs}
+            breadcrumbs={breadcrumbs && breadcrumbs}
           />
           <Box
               sx={{

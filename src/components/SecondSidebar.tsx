@@ -93,7 +93,7 @@ export default function SecondSidebar({
               key={page.name}
             >
               <ListItem sx={{width: '100%'}}>
-                  <ListItemButton selected={pagina===page.name}>
+                  <ListItemButton variant={pagina===page.name ? 'solid' : 'plain'} color={pagina===page.name ? 'primary' : 'neutral'} >
                     <ListItemDecorator >
                       <SvgIcon component={page.icon} />
                     </ListItemDecorator>

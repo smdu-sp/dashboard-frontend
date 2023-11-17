@@ -1,13 +1,9 @@
 import { useContext } from 'react';
-import GlobalStyles from '@mui/joy/GlobalStyles';
-import Avatar from '@mui/joy/Avatar';
-import List from '@mui/joy/List';
-import ListItemButton from '@mui/joy/ListItemButton';
-import Sheet from '@mui/joy/Sheet';
 import Image from 'next/image';
+import { Button, Tooltip, GlobalStyles, Avatar, List, ListItemButton, Sheet, IconButton } from '@mui/joy';
+import { Close, Menu, OpenInNew, Person } from '@mui/icons-material';
+
 import iconLogo from '@/assets/sis-icon.png';
-import { Button, Tooltip } from '@mui/joy';
-import { Close, Menu } from '@mui/icons-material';
 import { MenuContext } from '@/shared/contexts/MenuContext';
 
 export default function FirstSidebar() {
@@ -51,22 +47,14 @@ export default function FirstSidebar() {
         >
           {sidebarStatus ? <Menu sx={{ fontSize: 24 }} /> : <Close sx={{ fontSize: 24 }} />}
         </ListItemButton>
-        <ListItemButton sx={{ p: 1, borderRadius: 6, mt: { lg: 0 }}} href='/' onClick={() => window.location.href = '/'}>
+        <ListItemButton sx={{ p: 1, borderRadius: 6, mt: { lg: 0 }}} component="a" href="/">
           <Image src={iconLogo} height={24} alt="icon-logo" />
         </ListItemButton>
       </List>  
       <Tooltip title="Sair" arrow placement="top">
-        <Button
-          size="sm"
-          variant="outlined"
-          color="neutral"
-          sx={{ p: 0.5, borderRadius: 40 }}
-          onClick={() => {
-            window.location.href = '/login';
-          }}
-        >
-          <Avatar variant="plain" size="sm" />
-        </Button>
+        <IconButton color="primary" component="a" href="/login">
+          <Person />
+        </IconButton>
       </Tooltip>
     </Sheet>
   );

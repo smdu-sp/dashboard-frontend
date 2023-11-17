@@ -7,8 +7,7 @@ export default function ThemeToggle({ ...props }) {
     <IconButton
       id="toggle-mode"
       size="sm"
-      variant="outlined"
-      color="neutral"
+      color="primary"
       sx={{ p: 0.5 }}
       onClick={() => {
         setMode(mode === 'light' ? 'dark' : 'light');
@@ -16,8 +15,8 @@ export default function ThemeToggle({ ...props }) {
       {...props}
     >
       {mode === 'light' ?
-      <DarkModeRounded color="primary" /> :
-      <LightMode color="primary" />}
+      <DarkModeRounded /> :
+      <LightMode />}
     </IconButton>
   );
 }
