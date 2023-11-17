@@ -4,10 +4,11 @@ import Header from '@/components/Header';
 import FirstSidebar from '@/components/FirstSidebar';
 import SecondSidebar from '@/components/SecondSidebar';
 import SecondHeader from '@/components/SecondHeader';
+import { useEffect } from 'react';
 
 export default function Content({
     children,
-    titulo,
+    titulo = 'Dashboard',
     pagina,
     breadcrumbs,
     menuOverride,
@@ -26,6 +27,9 @@ export default function Content({
       icon: any;
     }[];
 }) {
+  useEffect(() => {
+    document.title = titulo + ' | Base';
+  }, []);
   return (
     <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
         <Header />
@@ -74,7 +78,7 @@ export default function Content({
                   justifyContent: 'space-between'
               }}
           >
-              <Typography level="h2">{titulo ? titulo : 'Dashboard'}</Typography>
+              <Typography level="h2">{titulo}</Typography>
           </Box>
           {children}
         </Box>
