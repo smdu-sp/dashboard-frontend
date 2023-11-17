@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { useContext } from 'react';
 import { Link, ListItemButton, ListItemDecorator, ListItemContent, ListItem, List, Sheet, Box, SvgIcon } from '@mui/joy';
 import { menu } from '../app/menu';
-import { closeSidebar } from '../utils';
+import { MenuContext } from '@/shared/contexts/MenuContext';
 
 export default function SecondSidebar({
   pagina,
@@ -15,6 +15,7 @@ export default function SecondSidebar({
     icon: any;
   }[];
 }) {
+  const { closeSidebar } = useContext(MenuContext);
   return (
     <>
       <Box

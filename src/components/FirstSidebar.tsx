@@ -1,22 +1,17 @@
-import * as React from 'react';
+import { useContext } from 'react';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import Avatar from '@mui/joy/Avatar';
 import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
 import ListItemButton from '@mui/joy/ListItemButton';
 import Sheet from '@mui/joy/Sheet';
 import Image from 'next/image';
 import iconLogo from '@/assets/sis-icon.png';
-import { toggleSidebar } from '../utils';
 import { Button, Tooltip } from '@mui/joy';
 import { Close, Menu } from '@mui/icons-material';
+import { MenuContext } from '@/shared/contexts/MenuContext';
 
 export default function FirstSidebar() {
-  const slideIn = window
-    .getComputedStyle(document.documentElement)
-    .getPropertyValue('--SideNavigation-slideIn');
-
-  document.body.style.removeProperty('overflow');
+  const { sidebarStatus, toggleSidebar } = useContext(MenuContext);
   return (
     <Sheet
       className="FirstSidebar"
@@ -54,7 +49,7 @@ export default function FirstSidebar() {
           }}
           onClick={() => toggleSidebar()}
         >
-          {slideIn ? <Close sx={{ fontSize: 24 }} /> : <Menu sx={{ fontSize: 24 }} /> }
+          {sidebarStatus ? <Menu sx={{ fontSize: 24 }} /> : <Close sx={{ fontSize: 24 }} />}
         </ListItemButton>
         <ListItemButton sx={{ p: 1, borderRadius: 6, mt: { lg: 0 }}} href='/' onClick={() => window.location.href = '/'}>
           <Image src={iconLogo} height={24} alt="icon-logo" />
