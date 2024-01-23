@@ -1,4 +1,4 @@
-import { AppRegistration, Home, Person, Search } from '@mui/icons-material';
+import { Home, Person } from '@mui/icons-material';
 
 export const menu = [
     {

@@ -28,7 +28,6 @@ export default function Content({
     }[];
 }) {
   useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_PROJECT_NAME);
     document.title = titulo + ' | ' + (process.env.NEXT_PUBLIC_PROJECT_NAME || 'Base');
   }, []);
   return (

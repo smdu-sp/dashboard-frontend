@@ -1,5 +1,6 @@
 'use client'
 
+import AuthSessionProvider from '@/providers/sessionProvider';
 import MenuProvider from '@/shared/contexts/MenuContext';
 import { CssBaseline } from '@mui/joy';
 import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
@@ -59,7 +60,7 @@ export default function RootLayout({children}:{children: React.ReactNode}) {
             <title>{process.env.NEXT_PUBLIC_PROJECT_NAME}</title>
           </head>
           <body>
-            {children}
+            <AuthSessionProvider>{children}</AuthSessionProvider>
           </body>
         </html>
       </MenuProvider>

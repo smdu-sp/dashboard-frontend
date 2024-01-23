@@ -22,6 +22,8 @@ $ npm install
 
 ## Rodando a aplicação
 
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
 Por padrão, a aplicação rodará na porta 3001.
 
 ```bash
