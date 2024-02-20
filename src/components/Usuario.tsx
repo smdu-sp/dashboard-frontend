@@ -1,5 +1,5 @@
 import { UsuarioToken } from "@/shared/interfaces/usuario-token";
-import { AspectRatio, Box, Card, CardContent, Chip, ChipPropsColorOverrides, ColorPaletteProp, Skeleton, Typography } from "@mui/joy";
+import { Box, Card, CardContent, Chip, ChipPropsColorOverrides, ColorPaletteProp, Skeleton, Typography } from "@mui/joy";
 import { getSession } from "next-auth/react";
 import { OverridableStringUnion } from '@mui/types';
 import { useEffect, useState } from "react";

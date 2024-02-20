@@ -1,6 +1,13 @@
 import { Home, Person } from '@mui/icons-material';
 
-export const menu = [
+interface IMenu {
+    title: string;
+    href: string;
+    name: string;
+    icon: any; 
+};
+
+export const menu: IMenu[] = [
     {
         title: 'Página Inicial',
         href: '/',
