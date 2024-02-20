@@ -1,15 +1,16 @@
 'use client'
 
-import { FormEvent, SyntheticEvent, useEffect, useState } from 'react';
-import { Button, Sheet, FormControl, Input } from '@mui/joy';
+import { FormEvent, SyntheticEvent, useContext, useEffect, useState } from 'react';
+import { Button, Sheet, FormControl, Input, Snackbar, Typography, Stack } from '@mui/joy';
 import Image from 'next/image';
 import logo from '@/assets/logo.png';
 import ThemeToggle from '@/components/ThemeToggle';
-import { Key, Person } from '@mui/icons-material';
+import { Cancel, Key, Person } from '@mui/icons-material';
 import React from 'react';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { AlertsContext } from '@/providers/alertsProvider';
 
 function getWindowSize() {
   const {innerWidth, innerHeight} = window;
@@ -17,6 +18,7 @@ function getWindowSize() {
 }
 
 export default function Login() {
+  const { setAlert } = useContext(AlertsContext);
   const [login, setLogin] = useState<string>('');
   const [senha, setSenha] = useState<string>('');
 
@@ -29,11 +31,11 @@ export default function Login() {
       redirect: false
     });
     if (result?.error) {
-      console.log(result);
+      setAlert('Credenciais incorretas!', 'Tente novamente!', 'danger', 5000, Cancel);
       return;
     }
-    alert('logado');
-    router.replace('/');
+    setAlert('Bem-vindo!', 'Login efetuado com sucesso', 'success', 5000);
+    setTimeout(() => router.replace('/'), 3000);
   }
   const [windowSize, setWindowSize] = useState(getWindowSize());
   useEffect(() => {
