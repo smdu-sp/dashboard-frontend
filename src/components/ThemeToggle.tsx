@@ -1,3 +1,5 @@
+'use client'
+
 import { WbSunny, Nightlight } from "@mui/icons-material";
 import { IconButton, useColorScheme as joyColorScheme } from "@mui/joy";
 import { useColorScheme as materialColorScheme } from "@mui/material";

@@ -19,6 +19,7 @@ export const authOptions: NextAuthOptions = {
               body: JSON.stringify({ login, senha })
             });
             const usuario = await response.json();
+            // console.log(usuario);
             if (usuario && response.ok) return usuario;
           }
           return null;
