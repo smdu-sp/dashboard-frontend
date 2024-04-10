@@ -8,7 +8,7 @@ export const authOptions: NextAuthOptions = {
         name: "credentials",
         credentials: {
           login: { label: "Login", type: "text" },
-          senha: {  label: "Senha", type: "password" }
+          senha: { label: "Senha", type: "password" }
         },
         async authorize(credentials) {
           if (credentials?.login && credentials?.senha){
@@ -19,7 +19,6 @@ export const authOptions: NextAuthOptions = {
               body: JSON.stringify({ login, senha })
             });
             const usuario = await response.json();
-            // console.log(usuario);
             if (usuario && response.ok) return usuario;
           }
           return null;
@@ -36,7 +35,7 @@ export const authOptions: NextAuthOptions = {
       },
       async session({ session, token }) {
         session = token.user as any;
-        session.usuario = jwtDecode(session.access_token);
+        if (session.access_token) session.usuario = jwtDecode(session.access_token);
         const now = new Date();
         if (session.usuario.exp*1000 < now.getTime()) {
           const response = await fetch(`${process.env.API_URL}refresh`, {
@@ -48,7 +47,7 @@ export const authOptions: NextAuthOptions = {
           const { access_token, refresh_token } = await response.json();
           session.access_token = access_token;
           session.refresh_token = refresh_token;
-          session.usuario = jwtDecode(access_token);
+          if (access_token) session.usuario = jwtDecode(access_token);
         }
         return session;
       }
