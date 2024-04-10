@@ -112,7 +112,7 @@ export default function Login() {
                 startDecorator={<Key />}
                 endDecorator={
                   <IconButton onClick={() => setMostraSenha(!mostraSenha)}>
-                    <SvgIcon component={mostraSenha ? Visibility : VisibilityOff} />
+                    <SvgIcon component={!mostraSenha ? Visibility : VisibilityOff} />
                   </IconButton>
                 }
                 name="senha"
