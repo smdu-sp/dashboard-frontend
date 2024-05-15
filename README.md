@@ -26,7 +26,9 @@ $ npm install
 $ copy example.env .env
 ```
 
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```bash
+$ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
 
 Copie o código gerado para o campo NEXTAUTH_SECRET no arquivo .env
 
