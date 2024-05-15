@@ -5,8 +5,9 @@ import Typography from '@mui/joy/Typography';
 
 export default function CardDashboard(props: any) {
   return (
-    <Card variant="solid" color={props.color} invertedColors
+    <Card variant="solid" invertedColors
      sx={{
+        bgcolor: props.color,
         width: 270,
         height: 120,
         marginTop: '5px',
