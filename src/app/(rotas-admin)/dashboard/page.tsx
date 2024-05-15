@@ -1,27 +1,17 @@
-'use client'
+"use client";
 
-import Content from '@/components/Content';
-import Card from '@/components/Card';
-import { useSearchParams } from 'next/navigation';
+import Content from "@/components/Content";
+import Card from "@/components/Card";
+import { useSearchParams } from "next/navigation";
 
 export default function Home() {
-    const anoatual = new Date().getFullYear();
+  const anoatual = new Date().getFullYear();
   return (
-    <Content
-      titulo='Dashboard SMUL/Suporte'
-      pagina='/'
-    >
-        <div className="lg:flex">
-        <Card
-          titulo="Chamados Novos"
-          color="primary"
-          valor='0'
-        ></Card>
-        <Card
-          titulo="Chamados Atribuídos"
-          color="success"
-          valor='0'
-        ></Card>
+    <Content titulo="Dashboard SMUL/Suporte" pagina="/">
+      {" "}
+      <div className="flex flex-wrap">
+        <Card titulo="Chamados Novos" color="primary" valor="0"></Card>
+        <Card titulo="Chamados Atribuídos" color="success" valor="0"></Card>
         <Card
           titulo="Média de Avaliação do Mês"
           color="neutral"
@@ -39,10 +29,9 @@ export default function Home() {
           valor="5"
         ></Card>
       </div>
-      <div style={{ marginTop: '70px', display: 'flex ' }}>
-        <div style={{ width: '60%'}}>            
-        </div>        
-      </div>      
+      <div style={{ marginTop: "70px", display: "flex " }}>
+        <div style={{ width: "60%" }}></div>
+      </div>
     </Content>
   );
 }
