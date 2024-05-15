@@ -20,9 +20,17 @@ Base de desenvolvimento frontend de SMUL/ATIC:
 $ npm install
 ```
 
-## Rodando a aplicação
+## Criando o arquivo .env
+
+```bash
+$ copy example.env .env
+```
 
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
+Copie o código gerado para o campo NEXTAUTH_SECRET no arquivo .env
+
+## Rodando a aplicação
 
 Por padrão, a aplicação rodará na porta 3001.
 
