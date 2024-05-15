@@ -1,4 +1,4 @@
-import { Business, Handyman, Home, Person } from '@mui/icons-material';
+import { Dashboard, Business, Handyman, Home, Person } from '@mui/icons-material';
 
 export interface IMenuOption {
     title:  string;
@@ -25,7 +25,7 @@ export const menu: IMenu = {
             title: 'Tickets para avaliar',
             href: '/avaliacao',
             name: 'avaliacao',
-            icon: Home,
+            icon: Dashboard,
         },
     ],
     adminOptions: [
@@ -39,7 +39,7 @@ export const menu: IMenu = {
             title: 'Dashboard',
             href: '/dashboard',
             name: 'dashboard',
-            icon: Person,
+            icon: Dashboard,
         }            
     ]
 }
