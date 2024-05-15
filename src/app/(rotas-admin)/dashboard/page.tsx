@@ -1,48 +1,51 @@
 'use client'
 
 import Content from '@/components/Content';
-import Card from '@/components/Card';
 import { useSearchParams } from 'next/navigation';
-
+import * as React from 'react';
+import Button from '@mui/joy/Button';
+import Stack from '@mui/joy/Stack';
+import Modal from '@mui/joy/Modal';
+import ModalClose from '@mui/joy/ModalClose';
+import ModalDialog, { ModalDialogProps } from '@mui/joy/ModalDialog';
+import GraficoMes from '@/components/GraficoMes';
+import PessoasMes from '@/components/PessoasMes';
+import { Grid, Sheet } from '@mui/joy';
+import Controle from '@/components/Controle';
 export default function Home() {
-    const anoatual = new Date().getFullYear();
+  const [layout, setLayout] = React.useState<ModalDialogProps['layout'] | undefined>(
+    undefined,
+  );
   return (
     <Content
       titulo='Dashboard SMUL/Suporte'
       pagina='/'
     >
-        <div className="lg:flex">
-        <Card
-          titulo="Chamados Novos"
-          color="primary"
-          valor='0'
-        ></Card>
-        <Card
-          titulo="Chamados Atribuídos"
-          color="success"
-          valor='0'
-        ></Card>
-        <Card
-          titulo="Média de Avaliação do Mês"
-          color="neutral"
-          valor="3.5"
-        ></Card>
-        <Card
-          titulo="Média de Avaliação"
-          ano={anoatual}
-          color="danger"
-          valor="4"
-        ></Card>
-        <Card
-          titulo="Média de Avaliação Geral"
-          color="warning"
-          valor="5"
-        ></Card>
-      </div>
+      <Controle />
+      <React.Fragment>
+        <Stack direction="row" spacing={1}>
+          <Button
+            sx={{ position: 'fixed', bootom: 0, right: '10px', width: 200 }}
+            variant="soft"
+            color="primary"
+            onClick={() => {
+              setLayout('fullscreen');
+            }}
+          >
+            Mostrar Dashborad
+          </Button>
+        </Stack>
+        <Modal open={!!layout} onClose={() => setLayout(undefined)}>
+          <ModalDialog layout={layout}>
+            <ModalClose />
+            <Controle />
+          </ModalDialog>
+        </Modal>
+      </React.Fragment>
       <div style={{ marginTop: '70px', display: 'flex ' }}>
-        <div style={{ width: '60%'}}>            
-        </div>        
-      </div>      
+        <div style={{ width: '60%' }}>
+        </div>
+      </div>
     </Content>
   );
 }
