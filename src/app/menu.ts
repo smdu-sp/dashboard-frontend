@@ -21,6 +21,12 @@ export const menu: IMenu = {
             name: '/',
             icon: Home,
         },
+        {
+            title: 'Tickets para avaliar',
+            href: '/avaliacao',
+            name: 'avaliacao',
+            icon: Home,
+        },
     ],
     adminOptions: [
         {
@@ -28,6 +34,12 @@ export const menu: IMenu = {
             href: '/usuarios',
             name: 'usuarios',
             icon: Person,
-        }         
+        },
+        {
+            title: 'Dashboard',
+            href: '/dashboard',
+            name: 'dashboard',
+            icon: Person,
+        }            
     ]
 }
