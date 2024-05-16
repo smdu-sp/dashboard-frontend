@@ -1,4 +1,5 @@
 import { Dashboard, Business, Handyman, Home, Person } from '@mui/icons-material';
+import StarIcon from '@mui/icons-material/Star';
 
 export interface IMenuOption {
     title:  string;
@@ -25,7 +26,7 @@ export const menu: IMenu = {
             title: 'Tickets para avaliar',
             href: '/avaliacao',
             name: 'avaliacao',
-            icon: Dashboard,
+            icon: StarIcon,
         },
     ],
     adminOptions: [
