@@ -3,10 +3,37 @@
 import { authOptions } from "@/shared/auth/authOptions";
 import { getServerSession } from "next-auth";
 import { signOut } from "next-auth/react";
-export interface ICreateUsuario {
+export interface ICreateAvaliacao {
     avaliacao: string;
     comentario: string;
     id_usuario: string;
+}
+export interface UsuarioGlpi {
+    id: number;
+    name: string;
+    firstname: string;
+    realname: string;
+}
+export interface TicketsUsuarios {
+    id: number;
+    type: number;
+    user: UsuarioGlpi;
+}
+export interface Tickets{
+    id: number;
+    name: string;
+    closedate: Date;
+    solvedate: Date;
+    Usuarios: TicketsUsuarios[]
+}
+export interface Avaliacao{
+    satisfaction?: number;
+    comment?: string;
+    id: number;
+    date_answered?: Date;
+    date_begin: Date;
+    type: number;
+    Tickets: Tickets;
 }
 
 const baseURL = process.env.API_URL || 'http://localhost:3000/';
@@ -27,4 +54,19 @@ async function criar(avaliacao: string, comentario: string, id_usuario: string) 
     return criado;
 }
 
-export { criar }
+async function buscar() {
+    const session = await getServerSession(authOptions);
+    const criado = await fetch(`${baseURL}chamados`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        return response.json();
+    })
+    return criado;
+}
+
+export { criar, buscar }
