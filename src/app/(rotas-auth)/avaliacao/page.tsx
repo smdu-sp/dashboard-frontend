@@ -3,11 +3,10 @@
 import Content from '@/components/Content';
 import React, { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import * as avaliacaoServices from '@/shared/services/avalicao.services';
-import { Autocomplete, AutocompleteOption, Box, Button, Chip, ChipPropsColorOverrides, ColorPaletteProp, FormControl, FormLabel, IconButton, Input, Option, Select, Snackbar, Stack, Table, Textarea, Typography, useTheme } from '@mui/joy';
+import { Autocomplete, AutocompleteOption, Box, Button, ButtonGroup, Chip, ChipPropsColorOverrides, ColorPaletteProp, FormControl, FormLabel, IconButton, Input, Option, Select, Snackbar, Stack, Table, Textarea, Typography, useTheme } from '@mui/joy';
 import { Add, Cancel, Check, Clear, Edit, Refresh, Search, Warning } from '@mui/icons-material';
 import type { Avaliacao } from '@/shared/services/avalicao.services';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { AlertsContext } from '@/providers/alertsProvider';
 import { Rating, TablePagination } from '@mui/material';
 import { OverridableStringUnion } from '@mui/types'
 import Tooltip from '@mui/material/Tooltip';
@@ -15,6 +14,9 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
+import * as usuarioServices from "@/shared/services/usuario.services";
+import { IUsuario } from "@/shared/services/usuario.services";
+import { AlertsContext } from "@/providers/alertsProvider";
 
 export default function Avaliacao() {
   return (
@@ -39,6 +41,9 @@ function SearchUsuarios() {
   const [estrelas, setEstrelas] = useState(0);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
+  const [usuario, setUsuario] = useState<IUsuario>();
+  const { setAlert } = useContext(AlertsContext);
+
 
   const confirmaVazio: {
     aberto: boolean,
@@ -54,27 +59,39 @@ function SearchUsuarios() {
     color: 'primary'
   }
   const [confirma, setConfirma] = useState(confirmaVazio);
-  const { setAlert } = useContext(AlertsContext);
 
   const theme = useTheme();
   const router = useRouter();
 
-  const avaliar= () => {
-      avaliacaoServices.avaliar(
-        id,
-        estrelas.toString(),
-        comentario,
-      )
+  const avaliar = () => {
+    avaliacaoServices.avaliar(
+      id,
+      estrelas.toString(),
+      comentario,
+    ).then(() => {
+      setOpen(false);
+      buscar();
+      setAlert('Avaliação feita com Sucesso!', 'Agradecemos sua avaliação!', 'success', 3000, Check);
+    })
   }
 
   useEffect(() => {
+    buscar();
+    usuarioServices.validaUsuario()
+      .then((response: IUsuario) => {
+        console.log(response);
+        setUsuario(response);
+      });
+  }, []);
+
+  const buscar = async () => {
     avaliacaoServices.buscar()
       .then((response) => {
         console.log(response);
         setAvaliacao(response);
       })
-      
-  }, []);
+  }
+
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -179,6 +196,7 @@ function SearchUsuarios() {
       <Table hoverRow sx={{ tableLayout: 'auto' }}>
         <thead>
           <tr>
+            <th>N° Ticket</th>
             <th>Chamado</th>
             <th>Data Fechamento</th>
             <th>Técnico</th>
@@ -189,13 +207,22 @@ function SearchUsuarios() {
           {(avaliacao && avaliacao.length > 0) && avaliacao.map((avaliacao) => (
 
             <Tooltip color='transparent' title={avaliacao.comment != null ? avaliacao.comment : ''} followCursor key={avaliacao.id}>
-              <tr key={avaliacao.id} className="cursor-pointer !important" onClick={() => {setId(avaliacao.id.toString()); setName(avaliacao.Tickets.name); setOpen(true)}}>
+              <tr key={avaliacao.id} className="cursor-pointer !important" >
+                <td>{avaliacao.Tickets.id}</td>
                 <td>{avaliacao.Tickets.name}</td>
                 <td>{avaliacao.Tickets.closedate.toString()}</td>
                 <td>{avaliacao.Tickets.Usuarios[1] ? avaliacao.Tickets.Usuarios[1].user.firstname + ' ' + avaliacao.Tickets.Usuarios[1].user.realname : ''}</td>
                 <td>
                   {avaliacao.satisfaction != null ? <Rating name="size-large" size="medium" value={avaliacao.satisfaction} readOnly />
-                   : <Chip variant="soft" color="danger" sx={{ cursor: 'default', px: 2 }}>Não avaliado</Chip>}</td>
+                    : <Button variant="soft" color="danger" onClick={() => {
+                      setId(avaliacao.id.toString());
+                      setName(avaliacao.Tickets.name);
+                      usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name.toLocaleLowerCase() ?
+                        (avaliacao.satisfaction == 0 || avaliacao.satisfaction == null ? setOpen(true) : setAlert('Tente novamente!', 'Chamado ja avaliado.', 'danger', 3000, Check)) :
+                        setAlert('Tente novamente!', 'Voce não pode avaliar o chamado de outro usuário.', 'danger', 3000, Check);
+                    }}>Avaliar
+                    </Button>}
+                </td>
               </tr>
             </Tooltip>
 
@@ -215,23 +242,23 @@ function SearchUsuarios() {
             <Stack spacing={2}>
               <FormControl>
                 <FormLabel>Name</FormLabel>
-                <Rating name="size-large" size="large" sx={{ p: 2 }} value={estrelas} onChange={(_, value) => value && setEstrelas(value)} />
+                <Rating name="size-large" size="large" sx={{ p: 2 }} value={estrelas} onChange={(_, value) => value && setEstrelas(value)} aria-required />
               </FormControl>
               <FormControl>
                 <FormLabel>Description</FormLabel>
                 <Textarea
-                    placeholder="Adicione seu comentário"
-                    value={comentario}
-                    onChange={(event) => setComentario(event.target.value)}
-                    minRows={2}
-                    maxRows={4}
-                    endDecorator={
-                      <Typography level="body-xs" sx={{ ml: 'auto' }}>
-                        {comentario.length} character(s)
-                      </Typography>
-                    }
-                    sx={{ minWidth: 300 }}
-                  />
+                  placeholder="Adicione seu comentário"
+                  value={comentario}
+                  onChange={(event) => setComentario(event.target.value)}
+                  minRows={2}
+                  maxRows={4}
+                  endDecorator={
+                    <Typography level="body-xs" sx={{ ml: 'auto' }}>
+                      {comentario.length} character(s)
+                    </Typography>
+                  }
+                  sx={{ minWidth: 300 }}
+                />
               </FormControl>
               <Button size="sm" variant="solid" onClick={avaliar}>
                 Salvar
@@ -251,11 +278,6 @@ function SearchUsuarios() {
         labelRowsPerPage="Registros por página"
         labelDisplayedRows={({ from, to, count }) => `${from}–${to} de ${count}`}
       /> : null}
-      <IconButton onClick={() => router.push('/avaliacao/avaliar/')} color='primary' variant='soft' size='lg' sx={{
-        position: 'fixed',
-        bottom: '2rem',
-        right: '2rem',
-      }}><Add /></IconButton>
     </Content>
   );
 }
