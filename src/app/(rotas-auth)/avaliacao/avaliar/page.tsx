@@ -5,7 +5,7 @@ import { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import { Autocomplete, AutocompleteOption, Box, Button, Card, CardActions, CardOverflow, Chip, ChipPropsColorOverrides, ColorPaletteProp, Divider, FormControl, FormLabel, IconButton, Input, Option, Select, Snackbar, Stack, Table, Textarea, Tooltip, Typography, useTheme } from '@mui/joy';
 import { Add, Cancel, Check, Clear, Edit, Refresh, Search, Warning } from '@mui/icons-material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import * as avaliacaoServices from '@/shared/services/avalicao.services';
+import * as chamadosServices from '@/shared/services/chamados.services';
 import { AlertsContext } from '@/providers/alertsProvider';
 import { Rating, TablePagination } from '@mui/material';
 import { OverridableStringUnion } from '@mui/types';
@@ -25,7 +25,7 @@ export default function Home() {
   const avaliacao = () => {
     const id = searchParams.get('id');
     if (id !== null) {
-      avaliacaoServices.avaliar(
+      chamadosServices.avaliar(
         id,
         estrelas.toString(),
         comentario,

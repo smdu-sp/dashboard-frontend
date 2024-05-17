@@ -2,10 +2,10 @@
 
 import Content from '@/components/Content';
 import React, { Suspense, useCallback, useContext, useEffect, useState } from 'react';
-import * as avaliacaoServices from '@/shared/services/avalicao.services';
+import * as chamadosServices from '@/shared/services/chamados.services';
 import { Autocomplete, AutocompleteOption, Box, Button, Chip, ChipPropsColorOverrides, ColorPaletteProp, FormControl, FormLabel, IconButton, Input, Option, Select, Snackbar, Stack, Table, Textarea, Typography, useTheme } from '@mui/joy';
 import { Add, Cancel, Check, Clear, Edit, Refresh, Search, Warning } from '@mui/icons-material';
-import type { Avaliacao } from '@/shared/services/avalicao.services';
+import type { Avaliacao } from '@/shared/services/chamados.services';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { AlertsContext } from '@/providers/alertsProvider';
 import { Rating, TablePagination } from '@mui/material';
@@ -60,7 +60,7 @@ function SearchUsuarios() {
   const router = useRouter();
 
   const avaliar= () => {
-      avaliacaoServices.avaliar(
+    chamadosServices.avaliar(
         id,
         estrelas.toString(),
         comentario,
@@ -68,7 +68,7 @@ function SearchUsuarios() {
   }
 
   useEffect(() => {
-    avaliacaoServices.buscar()
+    chamadosServices.buscar()
       .then((response) => {
         console.log(response);
         setAvaliacao(response);
