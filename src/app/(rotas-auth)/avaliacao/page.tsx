@@ -3,13 +3,18 @@
 import Content from '@/components/Content';
 import React, { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import * as avaliacaoServices from '@/shared/services/avalicao.services';
-import { Autocomplete, AutocompleteOption, Box, Button, Chip, ChipPropsColorOverrides, ColorPaletteProp, FormControl, FormLabel, IconButton, Input, Option, Select, Snackbar, Stack, Table, Tooltip, Typography, useTheme } from '@mui/joy';
+import { Autocomplete, AutocompleteOption, Box, Button, Chip, ChipPropsColorOverrides, ColorPaletteProp, FormControl, FormLabel, IconButton, Input, Option, Select, Snackbar, Stack, Table, Textarea, Typography, useTheme } from '@mui/joy';
 import { Add, Cancel, Check, Clear, Edit, Refresh, Search, Warning } from '@mui/icons-material';
 import type { Avaliacao } from '@/shared/services/avalicao.services';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { AlertsContext } from '@/providers/alertsProvider';
 import { Rating, TablePagination } from '@mui/material';
-import { OverridableStringUnion } from '@mui/types';
+import { OverridableStringUnion } from '@mui/types'
+import Tooltip from '@mui/material/Tooltip';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
+import DialogTitle from '@mui/joy/DialogTitle';
+import DialogContent from '@mui/joy/DialogContent';
 
 export default function Avaliacao() {
   return (
@@ -29,7 +34,11 @@ function SearchUsuarios() {
   const [status, setStatus] = useState(searchParams.get('status') ? Number(searchParams.get('status')) : 1);
   const [busca, setBusca] = useState(searchParams.get('busca') || '');
   const [permissao, setPermissao] = useState('');
-  const [usuario, setUsuario] = useState<Avaliacao>({} as Avaliacao);
+  const [open, setOpen] = useState(false);
+  const [comentario, setComentario] = useState('');
+  const [estrelas, setEstrelas] = useState(0);
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
 
   const confirmaVazio: {
     aberto: boolean,
@@ -50,13 +59,21 @@ function SearchUsuarios() {
   const theme = useTheme();
   const router = useRouter();
 
+  const avaliar= () => {
+      avaliacaoServices.avaliar(
+        id,
+        estrelas.toString(),
+        comentario,
+      )
+  }
+
   useEffect(() => {
     avaliacaoServices.buscar()
       .then((response) => {
         console.log(response);
         setAvaliacao(response);
       })
-
+      
   }, []);
 
   const createQueryString = useCallback(
@@ -92,13 +109,6 @@ function SearchUsuarios() {
     setLimite(parseInt(event.target.value, 10));
     setPagina(1);
   };
-
-  const permissoes: Record<string, { label: string, value: string, color: OverridableStringUnion<ColorPaletteProp, ChipPropsColorOverrides> | undefined }> = {
-    'DEV': { label: 'Desenvolvedor', value: 'DEV', color: 'neutral' },
-    'SUP': { label: 'Superadmin', value: 'SUP', color: 'primary' },
-    'ADM': { label: 'Administrador', value: 'ADM', color: 'success' },
-    'USR': { label: 'Usuário', value: 'USR', color: 'warning' },
-  }
 
   return (
     <Content
@@ -173,24 +183,63 @@ function SearchUsuarios() {
             <th>Data Fechamento</th>
             <th>Técnico</th>
             <th>Avalicão</th>
-            <th>Comentario</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           {(avaliacao && avaliacao.length > 0) && avaliacao.map((avaliacao) => (
-            <tr key={avaliacao.id}>
-              <td onClick={() => router.push('/avaliacao/avaliar/')}>{avaliacao.Tickets.name}</td>
-              <td onClick={() => router.push('/avaliacao/avaliar/')}>{avaliacao.Tickets.closedate.toString()}</td>
-              <td onClick={() => router.push('/avaliacao/avaliar/')}>{avaliacao.Tickets.Usuarios[1] ? avaliacao.Tickets.Usuarios[1].user.firstname + ' ' + avaliacao.Tickets.Usuarios[1].user.realname : ''}</td>
-              <td onClick={() => router.push('/avaliacao/avaliar/')}><Rating name="size-large" size="medium" value={avaliacao.satisfaction != null ? avaliacao.satisfaction : 0} readOnly /></td>
-              <td onClick={() => router.push('/avaliacao/avaliar/')}>{avaliacao.comment}</td>
-              <td onClick={() => router.push('/avaliacao/avaliar/')}>{avaliacao.satisfaction }</td>
-            </tr>
+
+            <Tooltip color='transparent' title={avaliacao.comment != null ? avaliacao.comment : ''} followCursor key={avaliacao.id}>
+              <tr key={avaliacao.id} className="cursor-pointer !important" onClick={() => {setId(avaliacao.id.toString()); setName(avaliacao.Tickets.name); setOpen(true)}}>
+                <td>{avaliacao.Tickets.name}</td>
+                <td>{avaliacao.Tickets.closedate.toString()}</td>
+                <td>{avaliacao.Tickets.Usuarios[1] ? avaliacao.Tickets.Usuarios[1].user.firstname + ' ' + avaliacao.Tickets.Usuarios[1].user.realname : ''}</td>
+                <td>
+                  {avaliacao.satisfaction != null ? <Rating name="size-large" size="medium" value={avaliacao.satisfaction} readOnly />
+                   : <Chip variant="soft" color="danger" sx={{ cursor: 'default', px: 2 }}>Não avaliado</Chip>}</td>
+              </tr>
+            </Tooltip>
 
           ))}
         </tbody>
       </Table>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <ModalDialog>
+          <DialogTitle>Avaliar Chamado</DialogTitle>
+          <DialogContent>{name}</DialogContent>
+          <form
+            onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+              event.preventDefault();
+              setOpen(false);
+            }}
+          >
+            <Stack spacing={2}>
+              <FormControl>
+                <FormLabel>Name</FormLabel>
+                <Rating name="size-large" size="large" sx={{ p: 2 }} value={estrelas} onChange={(_, value) => value && setEstrelas(value)} />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Description</FormLabel>
+                <Textarea
+                    placeholder="Adicione seu comentário"
+                    value={comentario}
+                    onChange={(event) => setComentario(event.target.value)}
+                    minRows={2}
+                    maxRows={4}
+                    endDecorator={
+                      <Typography level="body-xs" sx={{ ml: 'auto' }}>
+                        {comentario.length} character(s)
+                      </Typography>
+                    }
+                    sx={{ minWidth: 300 }}
+                  />
+              </FormControl>
+              <Button size="sm" variant="solid" onClick={avaliar}>
+                Salvar
+              </Button>
+            </Stack>
+          </form>
+        </ModalDialog>
+      </Modal>
       {(total && total > 0) ? <TablePagination
         component="div"
         count={total}

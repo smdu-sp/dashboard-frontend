@@ -69,4 +69,21 @@ async function buscar() {
     return criado;
 }
 
-export { criar, buscar }
+
+
+async function avaliar(id: string, satisfaction: string, comment: string) {
+    const session = await getServerSession(authOptions);
+    const avaliado = await fetch(`${baseURL}chamados/avaliar/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }, body: JSON.stringify({ satisfaction, comment })
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        return response.json();
+    })
+    return avaliado;
+}
+
+export { criar, buscar, avaliar }

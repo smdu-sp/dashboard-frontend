@@ -15,18 +15,22 @@ export default function Home() {
 
   const [estrelas, setEstrelas] = useState(0);
   const [comentario, setComentario] = useState('');
+  const searchParams = useSearchParams();
+
 
   // const { id } = props.params;
   const router = useRouter();
   const { setAlert } = useContext(AlertsContext);
 
-  const inserir = () => {
-    var usuario_id = 'awdawd';
-    avaliacaoServices.criar(
-      estrelas.toString(),
-      comentario,
-      usuario_id
-    )
+  const avaliacao = () => {
+    const id = searchParams.get('id');
+    if (id !== null) {
+      avaliacaoServices.avaliar(
+        id,
+        estrelas.toString(),
+        comentario,
+      )
+    }
   }
 
   // useEffect(() => {
@@ -81,7 +85,7 @@ export default function Home() {
               <Button size="sm" variant="outlined" color="neutral" onClick={() => router.back()}>
                 Cancelar
               </Button>
-              <Button size="sm" variant="solid" onClick={inserir}>
+              <Button size="sm" variant="solid" onClick={avaliacao}>
                 Salvar
               </Button>
             </CardActions>
