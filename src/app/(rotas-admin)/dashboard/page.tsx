@@ -1,5 +1,3 @@
-'use client'
-
 import Content from '@/components/Content';
 import { useSearchParams } from 'next/navigation';
 import * as React from 'react';
