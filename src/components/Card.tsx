@@ -8,6 +8,7 @@ export default function CardDashboard(props: any) {
     <Card variant="solid" invertedColors
      sx={{
         bgcolor: props.color,
+        borderRadius: 10,
         width: 270,
         height: 120,
         marginTop: '5px',

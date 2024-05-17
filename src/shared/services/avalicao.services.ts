@@ -69,8 +69,6 @@ async function buscar() {
     return criado;
 }
 
-
-
 async function avaliar(id: string, satisfaction: string, comment: string) {
     const session = await getServerSession(authOptions);
     const avaliado = await fetch(`${baseURL}chamados/avaliar/${id}`, {
@@ -80,10 +78,93 @@ async function avaliar(id: string, satisfaction: string, comment: string) {
             "Authorization": `Bearer ${session?.access_token}`
         }, body: JSON.stringify({ satisfaction, comment })
     }).then((response) => {
-        if (response.status === 401) signOut();
+        //if (response.status === 401) signOut();
         return response.json();
     })
     return avaliado;
 }
 
-export { criar, buscar, avaliar }
+async function chamadosMes() {
+    const session = await getServerSession(authOptions);
+    const chamados = await fetch(`${baseURL}chamados/mes`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        if (response.status !== 200) return;
+        return response.json();
+    })
+    return chamados;
+
+}
+
+async function chamadosPorMes() {
+    const session = await getServerSession(authOptions);
+    const chamados = await fetch(`${baseURL}chamados/mensal`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        if (response.status !== 200) return;
+        return response.json();
+    })
+    return chamados;
+
+}
+
+async function chamadosAno() {
+    const session = await getServerSession(authOptions);
+    const chamados = await fetch(`${baseURL}chamados/ano`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        if (response.status !== 200) return;
+        return response.json();
+    })
+    return chamados;
+}
+
+async function chamadosNovos() {
+    const session = await getServerSession(authOptions);
+    const chamados = await fetch(`${baseURL}chamados/novos`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        if (response.status !== 200) return;
+        return response.json();
+    })
+    return chamados;
+
+}
+
+async function chamadosAtribuidos() {
+    const session = await getServerSession(authOptions);
+    const chamados = await fetch(`${baseURL}chamados/atribuidos`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        if (response.status !== 200) return;
+        return response.json();
+    })
+    return chamados;
+
+}
+export { criar, buscar, avaliar, chamadosMes, chamadosPorMes, chamadosAno, chamadosNovos, chamadosAtribuidos }

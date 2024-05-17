@@ -1,79 +1,61 @@
-import * as React from 'react';
-import { BarChart } from '@mui/x-charts/BarChart';
+"use client"
 
-const chartSetting = {
-    xAxis: [
-        {
-            label: 'rainfall (mm)',
+import { useRef, useEffect } from 'react';
+import { Chart } from 'chart.js/auto';
+import ChartDataLabels from'chartjs-plugin-datalabels';
+
+
+export default function BarChart({ data, label = '', ...props }: { data: { name: string, tickets: number }[], label?: string }) {
+  const chartRef: any = useRef(null);
+  useEffect(() => {
+    if (chartRef.current){
+      if (chartRef.current.chart){
+        chartRef.current.chart.destroy();
+      }
+      const context = chartRef.current.getContext('2d');
+      const newChart = new Chart(context, {
+        type: 'bar',
+        data: {
+          labels: data.map((item) => item.name),
+          datasets: [
+            {
+              label,
+              data: data.map((item) => item.tickets),
+              backgroundColor: [
+                '#2b3a67',
+                '#496A81',
+                '#66999B',
+                '#B3AF8F',
+                '#FFC482',
+              ],
+              datalabels: {
+                color: 'black',
+                anchor: 'end',
+                align: 'top',
+                font: {
+                  weight: 'bold',
+                  size: 15,
+                }                               
+              }
+            },
+          ],
         },
-    ],
-    width: 500,
-    height: 400,
-};
-const dataset = [
-    {
-        london: 59,
-        paris: 57,
-        newYork: 86,
-        seoul: 21,
-        month: 'Guilherme',
-    },
-    {
-        london: 50,
-        paris: 52,
-        newYork: 78,
-        seoul: 28,
-        month: 'José',
-    },
-    {
-        london: 47,
-        paris: 53,
-        newYork: 106,
-        seoul: 41,
-        month: 'Guilherme Filho',
-    },
-    {
-        london: 54,
-        paris: 56,
-        newYork: 92,
-        seoul: 73,
-        month: 'Fernando',
-    },
-    {
-        london: 57,
-        paris: 69,
-        newYork: 92,
-        seoul: 99,
-        month: 'Sidney',
-    },
-    {
-        london: 60,
-        paris: 63,
-        newYork: 103,
-        seoul: 144,
-        month: 'Bruno',
-    },
-    {
-        london: 59,
-        paris: 60,
-        newYork: 105,
-        seoul: 319,
-        month: 'Diego',
+        plugins: [ChartDataLabels],
+        options: {          
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+            x: {
+              type: 'category',
+            }
+          },
+        },
+      })
+      chartRef.current.chart = newChart;
     }
-];
-
-const valueFormatter = (value: number | null) => `${value}mm`;
-
-export default function HorizontalBars() {
-    return (
-        <BarChart
-            colors={['#0088FE']}
-            sx={{ width: '300%', height: '100%'}}
-            dataset={dataset}
-            yAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-            series={[{ dataKey: 'seoul', label: 'Seoul rainfall', valueFormatter }]}
-            layout="horizontal"
-            {...chartSetting}
-        />
-    );
+  }, [])
+  return (
+    <canvas ref={chartRef} />
+  )
 }
