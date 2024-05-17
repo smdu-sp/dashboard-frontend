@@ -210,7 +210,7 @@ function SearchUsuarios() {
               <tr key={avaliacao.id} className="cursor-pointer !important" >
                 <td>{avaliacao.Tickets.id}</td>
                 <td>{avaliacao.Tickets.name}</td>
-                <td>{avaliacao.Tickets.closedate.toString()}</td>
+                <td>{new Date(avaliacao.Tickets.closedate).toLocaleString('pt-BR').replace(',', '')}</td>
                 <td>{avaliacao.Tickets.Usuarios[1] ? avaliacao.Tickets.Usuarios[1].user.firstname + ' ' + avaliacao.Tickets.Usuarios[1].user.realname : ''}</td>
                 <td>
                   {avaliacao.satisfaction != null ? <Rating name="size-large" size="medium" value={avaliacao.satisfaction} readOnly />
