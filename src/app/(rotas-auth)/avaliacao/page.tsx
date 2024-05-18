@@ -214,7 +214,7 @@ function SearchUsuarios() {
                 <td>{avaliacao.Tickets.Usuarios[1] ? avaliacao.Tickets.Usuarios[1].user.firstname + ' ' + avaliacao.Tickets.Usuarios[1].user.realname : ''}</td>
                 <td>
                   {avaliacao.satisfaction != null ? <Rating name="size-large" size="medium" value={avaliacao.satisfaction} readOnly />
-                    : <Button variant="soft" color="danger" onClick={() => {
+                    : <Button variant="soft" color="danger" disabled={usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name.toLocaleLowerCase() ? false : true} onClick={() => {
                       setId(avaliacao.id.toString());
                       setName(avaliacao.Tickets.name);
                       usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name.toLocaleLowerCase() ?
