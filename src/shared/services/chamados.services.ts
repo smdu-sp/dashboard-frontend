@@ -36,6 +36,10 @@ export interface Avaliacao{
     Tickets: Tickets;
 }
 
+export interface ChamadosAvaliados {
+    satisfaction?: number;
+}
+
 const baseURL = process.env.API_URL || 'http://localhost:3000/';
 
 async function criar(avaliacao: string, comentario: string, id_usuario: string) {
@@ -167,4 +171,62 @@ async function chamadosAtribuidos() {
     return chamados;
 
 }
-export { criar, buscar, avaliar, chamadosMes, chamadosPorMes, chamadosAno, chamadosNovos, chamadosAtribuidos }
+
+async function chamadosAvaliados(){
+    const session = await getServerSession(authOptions);
+    const avaliados = await fetch(`${baseURL}chamados/avaliados`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        return response.json();
+    })
+    return avaliados;
+}
+
+async function chamadosAvaliadosNoAno(){
+    const session = await getServerSession(authOptions);
+    const avaliadosAno = await fetch(`${baseURL}chamados/avaliados/ano`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        return response.json();
+    })
+    return avaliadosAno;
+}
+
+async function chamadosAvaliadosNoMes(){
+    const session = await getServerSession(authOptions);
+    const avaliadosMes = await fetch(`${baseURL}chamados/avaliados/mes`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        return response.json();
+    })
+    return avaliadosMes;
+}
+
+export { 
+    criar, 
+    buscar, 
+    avaliar, 
+    chamadosMes, 
+    chamadosPorMes, 
+    chamadosAno, 
+    chamadosNovos, 
+    chamadosAtribuidos, 
+    chamadosAvaliados,
+    chamadosAvaliadosNoAno,
+    chamadosAvaliadosNoMes
+}
