@@ -12,9 +12,7 @@ export default function AlertaSonoro({ chamados }: AlertaSonoroProps) {
       const audio = new Audio('/alert.mp3');
       audio.play();
     }
-  }, [chamados]);
-
-  console.log('O numero de novos chamados e: ', chamados);
+  }, [chamados]); 
 
   return null;
 }
