@@ -45,9 +45,15 @@ export default function BarChart({ data, label = '', ...props }: { data: { name:
           scales: {
             y: {
               beginAtZero: true,
+              grid: {
+                display: false
+              }              
             },
             x: {
               type: 'category',
+              grid: {
+                display: false
+              }
             }
           },
         },
