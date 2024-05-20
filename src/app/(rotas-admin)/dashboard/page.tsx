@@ -2,6 +2,7 @@ import Content from '@/components/Content';
 import Controle from '@/components/Controle';
 import Dashboard from './Dashboard';
 import * as chamadosServices from '@/shared/services/chamados.services';
+import AlertaSonoro from '@/components/alertaSonoro';
 export default async function Home() {
   const novos = await chamadosServices.chamadosNovos();
   const atribuidos = await chamadosServices.chamadosAtribuidos();
@@ -12,6 +13,7 @@ export default async function Home() {
       titulo='Dashboard SMUL/Suporte'
       pagina='/'
     >
+      <AlertaSonoro chamados={novos.quantidade} />
       <Dashboard
         novos={novos.quantidade}
         atribuidos={atribuidos.quantidade}
