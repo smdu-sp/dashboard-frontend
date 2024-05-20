@@ -50,7 +50,7 @@ function SearchUsuarios() {
   const theme = useTheme();
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect(() => { 
     usuarioServices.validaUsuario()
         .then((response: IUsuario) => {
             setUsuario(response);

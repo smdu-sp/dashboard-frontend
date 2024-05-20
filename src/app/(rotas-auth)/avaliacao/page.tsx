@@ -79,7 +79,6 @@ function SearchUsuarios() {
     buscar();
     usuarioServices.validaUsuario()
       .then((response: IUsuario) => {
-        console.log(response);
         setUsuario(response);
       });
   }, []);
@@ -87,7 +86,6 @@ function SearchUsuarios() {
   const buscar = async () => {
     chamadosServices.buscar()
       .then((response) => {
-        console.log(response);
         setAvaliacao(response);
       })
   }
