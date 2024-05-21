@@ -41,6 +41,7 @@ function SearchUsuarios() {
   const [estrelas, setEstrelas] = useState(0);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
+  const [ticket, setTicket] = useState(0);
   const [usuario, setUsuario] = useState<IUsuario>();
   const { setAlert } = useContext(AlertsContext);
 
@@ -64,24 +65,24 @@ function SearchUsuarios() {
   const router = useRouter();
 
   const avaliar = () => {
-  chamadosServices.avaliar(
+    chamadosServices.avaliar(
       id,
       estrelas.toString(),
       comentario,
     ).then(() => {
       setOpen(false);
-      buscar();
+      buscarTudo();
       setAlert('Avaliação feita com Sucesso!', 'Agradecemos sua avaliação!', 'success', 3000, Check);
     })
   }
 
   useEffect(() => {
     usuarioServices.validaUsuario()
-    .then((response: IUsuario) => {
-      setUsuario(response);
-    });
+      .then((response: IUsuario) => {
+        setUsuario(response);
+      });
     buscarTudo();
-  }, [ pagina, limite ]);
+  }, [pagina, limite]);
 
   const buscar = async () => {
     chamadosServices.buscar()
@@ -224,6 +225,7 @@ function SearchUsuarios() {
                     : <Button variant="soft" color="danger" disabled={usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name.toLocaleLowerCase() ? false : true} onClick={() => {
                       setId(avaliacao.id.toString());
                       setName(avaliacao.Tickets.name);
+                      setTicket(avaliacao.Tickets.id)
                       usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name.toLocaleLowerCase() ?
                         (avaliacao.satisfaction == 0 || avaliacao.satisfaction == null ? setOpen(true) : setAlert('Tente novamente!', 'Chamado ja avaliado.', 'danger', 3000, Check)) :
                         setAlert('Tente novamente!', 'Voce não pode avaliar o chamado de outro usuário.', 'danger', 3000, Check);
@@ -238,8 +240,7 @@ function SearchUsuarios() {
       </Table>
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog>
-          <DialogTitle>Avaliar Chamado</DialogTitle>
-          <DialogContent>{name}</DialogContent>
+          <DialogTitle sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Avaliar Ticket #{ticket}</DialogTitle>
           <form
             onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
               event.preventDefault();
@@ -247,12 +248,16 @@ function SearchUsuarios() {
             }}
           >
             <Stack spacing={2}>
-              <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Rating name="size-large" size="large" sx={{ p: 2 }} value={estrelas} onChange={(_, value) => value && setEstrelas(value)} aria-required />
+              <FormControl sx={{ width: '100%', display: 'flex' }}>
+                <FormLabel>Título:</FormLabel>
+                <FormLabel>{name}</FormLabel>
+              </FormControl>
+              <FormControl sx={{ width: '100%', display: 'flex', py: 2 }}>
+                <FormLabel>Nota avaliação do chamado:</FormLabel>
+                <Rating name="size-large" size="large" sx={{ fontSize: '2.5rem' }} value={estrelas} onChange={(_, value) => value && setEstrelas(value)} aria-required />
               </FormControl>
               <FormControl>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>Comentário:</FormLabel>
                 <Textarea
                   placeholder="Adicione seu comentário"
                   value={comentario}
