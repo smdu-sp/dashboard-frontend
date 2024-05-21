@@ -76,17 +76,28 @@ function SearchUsuarios() {
   }
 
   useEffect(() => {
-    buscar();
     usuarioServices.validaUsuario()
-      .then((response: IUsuario) => {
-        setUsuario(response);
-      });
-  }, []);
+    .then((response: IUsuario) => {
+      setUsuario(response);
+    });
+    buscar();
+    buscarTudo();
+  }, [ pagina, limite ]);
 
   const buscar = async () => {
     chamadosServices.buscar()
       .then((response) => {
         setAvaliacao(response);
+      })
+  }
+
+  const buscarTudo = async () => {
+    chamadosServices.buscarTudo(pagina, limite)
+      .then((response) => {
+        setTotal(response.total);
+        setPagina(response.pagina);
+        setLimite(response.limite);
+        setAvaliacao(response.data);
       })
   }
 

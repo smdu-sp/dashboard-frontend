@@ -36,11 +36,33 @@ export interface Avaliacao{
     Tickets: Tickets;
 }
 
+export interface IPaginadoAvaliacoes {
+    data: Avaliacao[];
+    total: number;
+    pagina: number;
+    limite: number;
+}
+
 export interface ChamadosAvaliados {
     satisfaction?: number;
 }
 
 const baseURL = process.env.API_URL || 'http://localhost:3000/';
+
+async function buscarTudo(pagina: number = 1, limite: number = 10): Promise<IPaginadoAvaliacoes> {
+    const session = await getServerSession(authOptions);
+    const buscaTudo = await fetch(`${baseURL}chamados/buscar-tudo?&pagina=${pagina}&limite=${limite}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        return response.json();
+    })
+    return buscaTudo;
+}
 
 async function criar(avaliacao: string, comentario: string, id_usuario: string) {
     const session = await getServerSession(authOptions);
@@ -228,5 +250,6 @@ export {
     chamadosAtribuidos, 
     chamadosAvaliados,
     chamadosAvaliadosNoAno,
-    chamadosAvaliadosNoMes
+    chamadosAvaliadosNoMes,
+    buscarTudo
 }
