@@ -51,6 +51,9 @@ export default async function Home() {
         atribuidos={atribuidos.quantidade}
         mes={mes}
         ano={ano}
+        mediaGeral={calcularMedia(mediaGeral)}
+        mediaMes={calcularMedia(mediaMes)}
+        mediaAno={calcularMedia(mediaAno)}
       />
       <Controle
         novos={novos.quantidade}

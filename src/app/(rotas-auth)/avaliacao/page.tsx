@@ -80,7 +80,6 @@ function SearchUsuarios() {
     .then((response: IUsuario) => {
       setUsuario(response);
     });
-    buscar();
     buscarTudo();
   }, [ pagina, limite ]);
 
