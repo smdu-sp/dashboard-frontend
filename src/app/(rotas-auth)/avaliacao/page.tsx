@@ -212,8 +212,7 @@ function SearchUsuarios() {
           </tr>
         </thead>
         <tbody>
-          {(avaliacao && avaliacao.length > 0) && avaliacao.slice().reverse().map((avaliacao) => (
-
+          {(avaliacao && avaliacao.length > 0) && avaliacao.map((avaliacao) => (
             <Tooltip color='transparent' title={avaliacao.comment != null ? avaliacao.comment : ''} followCursor key={avaliacao.id}>
               <tr key={avaliacao.id} className="cursor-pointer !important" >
                 <td>{avaliacao.Tickets.id}</td>
