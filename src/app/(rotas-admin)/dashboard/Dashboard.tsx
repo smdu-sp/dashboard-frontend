@@ -4,7 +4,7 @@ import Controle from "@/components/Controle";
 import { Button, Modal, ModalClose, ModalDialog, ModalDialogProps, Stack } from "@mui/joy";
 import React from "react";
 
-export default function Dashboard({ novos, atribuidos, mes, ano }: { novos: number, atribuidos: number, mes: { name: string; tickets: number }[], ano: { name: string; tickets: number }[] }) {
+export default function Dashboard({ mediaGeral, mediaMes, mediaAno, novos, atribuidos, mes, ano }: { mediaGeral: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number, mes: { name: string; tickets: number }[], ano: { name: string; tickets: number }[] }) {
     const [layout, setLayout] = React.useState<ModalDialogProps['layout'] | undefined>(
       undefined,
     );
@@ -30,6 +30,9 @@ export default function Dashboard({ novos, atribuidos, mes, ano }: { novos: numb
                 atribuidos={atribuidos}
                 mes={mes}
                 ano={ano}
+                mediaGeral={mediaGeral}
+                mediaMes={mediaMes}
+                mediaAno={mediaAno}
               />
             </ModalDialog>
           </Modal>
