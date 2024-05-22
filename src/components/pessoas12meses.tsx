@@ -45,7 +45,7 @@ export default function BarChart({ data, label = '' }: { data: { name: string, t
               beginAtZero: true,
               grid: {
                 display: false
-              }        
+              }              
             },
             x: {
               type: 'category',
@@ -59,7 +59,6 @@ export default function BarChart({ data, label = '' }: { data: { name: string, t
       chartRef.current.chart = newChart;
     }
   }, [])
-
   return (
     <canvas ref={chartRef} />
   )
