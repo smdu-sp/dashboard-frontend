@@ -1,16 +1,19 @@
+
 import Content from '@/components/Content';
 import Controle from '@/components/Controle';
 import Dashboard from './Dashboard';
 import * as chamadosServices from '@/shared/services/chamados.services';
 import AlertaSonoro from '@/components/alertaSonoro';
+import { Box } from '@mui/material';
+import { useState } from 'react';
 export default async function Home() {
   const novos = await chamadosServices.chamadosNovos();
   const atribuidos = await chamadosServices.chamadosAtribuidos();
   const mes = await chamadosServices.chamadosMes();
-  const mediaGeral: number[] = [];  
-  const mediaMes: number[] = [];  
-  const mediaAno: number[] = [];  
-
+  const doze = await chamadosServices.chamadosAno();
+  const mediaGeral: number[] = [];
+  const mediaMes: number[] = [];
+  const mediaAno: number[] = [];
   function calcularMedia(avaliados: number[]) {
     var soma = 0;
     for (var i = 0; i < avaliados.length; i++) {
@@ -41,33 +44,37 @@ export default async function Home() {
 
   const ano: any[] = [];
   return (
-    <Content
-      titulo='Dashboard SMUL/Suporte'
-      pagina='/'
-    >
-      <AlertaSonoro chamados={novos.quantidade} />
-      <Dashboard
-        novos={novos.quantidade}
-        atribuidos={atribuidos.quantidade}
-        mes={mes}
-        ano={ano}
-        mediaGeral={calcularMedia(mediaGeral)}
-        mediaMes={calcularMedia(mediaMes)}
-        mediaAno={calcularMedia(mediaAno)}
-      />
-      <Controle
-        novos={novos.quantidade}
-        atribuidos={atribuidos.quantidade}
-        mes={mes}
-        ano={ano}
-        mediaGeral={calcularMedia(mediaGeral)}
-        mediaMes={calcularMedia(mediaMes)}
-        mediaAno={calcularMedia(mediaAno)}
-      />
-      <div style={{ marginTop: '70px', display: 'flex ' }}>
-        <div style={{ width: '60%' }}>
+    <Box>
+      <Content
+        titulo='Dashboard SMUL/Suporte'
+        pagina='/'
+      >
+        <AlertaSonoro chamados={novos.quantidade} />
+        <Dashboard
+          novos={novos.quantidade}
+          atribuidos={atribuidos.quantidade}
+          mes={mes}
+          ano={ano}
+          doze={doze}
+          mediaGeral={calcularMedia(mediaGeral)}
+          mediaMes={calcularMedia(mediaMes)}
+          mediaAno={calcularMedia(mediaAno)}
+        />
+        <Controle
+          novos={novos.quantidade}
+          atribuidos={atribuidos.quantidade}
+          mes={mes}
+          ano={ano}
+          doze={doze}
+          mediaGeral={calcularMedia(mediaGeral)}
+          mediaMes={calcularMedia(mediaMes)}
+          mediaAno={calcularMedia(mediaAno)}
+        />
+        <div style={{ marginTop: '70px', display: 'flex ' }}>
+          <div style={{ width: '60%' }}>
+          </div>
         </div>
-      </div>
-    </Content>
+      </Content>
+    </Box>
   );
 }
