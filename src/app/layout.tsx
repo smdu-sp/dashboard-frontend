@@ -51,8 +51,8 @@ const materialTheme = materialExtendTheme({
 
 const theme = extendTheme({
   fontFamily: {
-    display: 'Lato', // applies to `h1`–`h4`
-    body: 'Lato', // applies to `title-*` and `body-*`
+    display: 'Pangram', // applies to `h1`–`h4`
+    body: 'Pangram', // applies to `title-*` and `body-*`
   },
   "colorSchemes": {
     "dark": {
