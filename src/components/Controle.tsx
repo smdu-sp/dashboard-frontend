@@ -8,6 +8,8 @@ import { useTheme } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import * as chamadosServices from '@/shared/services/chamados.services';
+import { useEffect, useState } from 'react';
 
 const meses = [
   "Janeiro",
@@ -24,10 +26,11 @@ const meses = [
   "Dezembro",
 ];
 
-
-export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos, mes, ano, doze }: { mediaGeral: number, doze: { name: string; tickets: number }[], mediaMes: number, mediaAno: number, novos: number, atribuidos: number, mes: { name: string; tickets: number }[], ano: { name: string; tickets: number }[] }) {
+export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos}: { mediaGeral: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number }) {
 
   const data = new Date();
+  const [mesAtual, setMes] = useState<any[]>([]);
+  const [dozeMeses, setDoze] = useState<any[]>([]);
 
   var last12Months = [];
 
@@ -43,22 +46,35 @@ export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos, me
     last12Months.push(`${meses[month]}/${year}`);
   }
 
+  const mes = async () => await chamadosServices.chamadosMes();
+  const ano = async () => await chamadosServices.chamadosAno();
+
+  useEffect(() => {
+    // Resolva as promessas aqui e atualize o estado
+    async function fetchData() {
+      const mesData = await mes();
+      const anoData = await ano();
+      setMes(mesData);
+      setDoze(anoData);
+    }
+    fetchData();
+  }, []);
 
   const images = [
     {
-      grafic: doze,
+      grafic: dozeMeses,
       labels: last12Months.toString().replace(/,/g, ", ")
     },
     {
-      grafic: mes,
+      grafic: mesAtual,
       labels: meses[new Date().getMonth()]
     },
   ];
 
 
   const anoatual = new Date().getFullYear();
-  mes.sort((a, b) => b.tickets - a.tickets);
-  ano.sort((a, b) => b.tickets - a.tickets);
+  // mes.sort((a, b) => b.tickets - a.tickets);
+  // ano.sort((a, b) => b.tickets - a.tickets);
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -92,7 +108,7 @@ export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos, me
               alignItems: 'center',
               pl: 2,
               minWidth: "1400px",
-              mt: 10
+              mt: 5
             }}
           >
           </Paper>
