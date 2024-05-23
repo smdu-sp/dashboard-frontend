@@ -26,7 +26,7 @@ const meses = [
   "Dezembro",
 ];
 
-export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos}: { mediaGeral: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number }) {
+export default function Controle({ mediaGeral, mediaMes, mediaAno, novos, atribuidos}: { mediaGeral: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number }) {
 
   const data = new Date();
   const [mesAtual, setMes] = useState<any[]>([]);
