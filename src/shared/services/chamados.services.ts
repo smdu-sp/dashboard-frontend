@@ -239,6 +239,21 @@ async function chamadosAvaliadosNoMes(){
     return avaliadosMes;
 }
 
+async function avaliarSeteDias(){
+    const session = await getServerSession(authOptions);
+    const avaliacao = await fetch(`${baseURL}chamados/avaliar-sete-dias`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        return response.json();
+    })
+    return avaliacao;
+}
+
 export { 
     criar, 
     buscar, 
@@ -251,5 +266,6 @@ export {
     chamadosAvaliados,
     chamadosAvaliadosNoAno,
     chamadosAvaliadosNoMes,
-    buscarTudo
+    buscarTudo,
+    avaliarSeteDias
 }

@@ -79,11 +79,11 @@ export default function Controle({ mediaGeral, mediaMes, mediaAno, novos, atribu
           <Card titulo="Chamados Atribuídos" color="#f26e14" size="30px" mt={10} sizeNum="60px" valor={atribuidos}></Card>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <Card titulo="Média de Avaliação do Ano" ano={anoatual} mt={2} color="#14b1f2" valor={mediaAno} />
-          <Card titulo="Média de Avaliação Geral" color="#517bee" mt={2} valor={mediaGeral} />
+          <Card titulo="Média de Avaliação do Ano" ano={anoatual} mt={2} color="#14b1f2" valor={isNaN(mediaAno) ? 0 : mediaAno} />
+          <Card titulo="Média de Avaliação Geral" color="#517bee" mt={2} valor={isNaN(mediaGeral) ? 0 : mediaGeral} />
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-          <Card titulo="Média de Avaliação Mensal" size="30px" sizeNum="60px" mt={10} color="#0a3299" valor={mediaMes} />
+          <Card titulo="Média de Avaliação Mensal" size="30px" sizeNum="60px" mt={10} color="#0a3299" valor={isNaN(mediaMes) ? 0 : mediaMes} />
         </Box>
       </Box>
       <Box>

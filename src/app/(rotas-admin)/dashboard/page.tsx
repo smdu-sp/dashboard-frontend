@@ -29,6 +29,8 @@ export default function Home() {
       setMediaGeral(avaliadosData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
       setMediaMes(avaliadosNoMesData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
       setMediaAno(avaliadosNoAnoData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
+
+      chamadosServices.avaliarSeteDias();
     };
 
     fetchData();
