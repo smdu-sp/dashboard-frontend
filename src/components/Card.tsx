@@ -20,7 +20,7 @@ export default function CardDashboard(props: any) {
       <CardContent orientation="horizontal">        
         <CardContent>
           <Typography level="body-lg" fontSize={props.size} height={11}>{props.titulo} {props.ano} </Typography>          
-          <Typography level="h1" fontSize={props.sizeNum} marginTop={2}>{props.valor}</Typography>
+          <Typography level="h1" fontSize={props.sizeNum} marginTop={props.mt}>{props.valor.toString().length > 3 ? props.valor.toFixed(1) : props.valor}</Typography>
         </CardContent>
       </CardContent>      
     </Card>
