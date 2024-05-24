@@ -41,8 +41,11 @@ export default function Home() {
   return (
     <Box>
       <Content
+        breadcrumbs={[
+          { label: 'Dashboard', href: '/dashboard' }
+        ]}
         titulo='Dashboard SMUL/Suporte'
-        pagina='/'
+        pagina='dashboard'
       >
         <AlertaSonoro chamados={novos.quantidade} />
         <Dashboard
@@ -53,6 +56,7 @@ export default function Home() {
           mediaAno={calcularMedia(mediaAno)}
         />
         <Controle
+          mt={0}
           novos={novos.quantidade}
           atribuidos={atribuidos.quantidade}
           mediaGeral={calcularMedia(mediaGeral)}
