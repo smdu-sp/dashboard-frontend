@@ -1,23 +1,26 @@
+
 'use client'
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Content from '@/components/Content';
 import Controle from '@/components/Controle';
 import Dashboard from './Dashboard';
 import * as chamadosServices from '@/shared/services/chamados.services';
 import AlertaSonoro from '@/components/alertaSonoro';
 import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [novos, setNovos] = useState<{ quantidade: number }>({ quantidade: 0 });
-  const [atribuidos, setAtribuidos] = useState<{ quantidade: number }>({ quantidade: 0 });
-  // const [mes, setMes] = useState<any[]>([]);
-  // const [doze, setDoze] = useState<any[]>([]);
-  const [mediaGeral, setMediaGeral] = useState<number[]>([]);
-  const [mediaMes, setMediaMes] = useState<number[]>([]);
-  const [mediaAno, setMediaAno] = useState<number[]>([]);
+  const [novos, setNovos] = useState({ quantidade: 0 });
+  const [atribuidos, setAtribuidos] = useState({ quantidade: 0 });
+  const [mediaGeral, setMediaGeral] = useState([]);
+  const [mediaMes, setMediaMes] = useState([]);
+  const [mediaAno, setMediaAno] = useState([]);
 
   useEffect(() => {
+
     const fetchData = async () => {
+
+
       const novosData = await chamadosServices.chamadosNovos();
       const atribuidosData = await chamadosServices.chamadosAtribuidos();
       const avaliadosData = await chamadosServices.chamadosAvaliados();
@@ -40,6 +43,7 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+
   return (
     <Box>
       <Content
@@ -49,7 +53,7 @@ export default function Home() {
         titulo='Dashboard SMUL/Suporte'
         pagina='dashboard'
       >
-        <AlertaSonoro chamados={novos.quantidade} />
+        {/* <AlertaSonoro chamados={novos.quantidade} /> */}
         <Dashboard
           novos={novos.quantidade}
           atribuidos={atribuidos.quantidade}
