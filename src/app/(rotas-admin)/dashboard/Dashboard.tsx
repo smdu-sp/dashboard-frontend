@@ -13,7 +13,7 @@ export default function Dashboard({ mediaGeral, mediaMes, mediaAno, novos, atrib
         <React.Fragment>
           <Stack direction="row" spacing={1}>
             <Button
-              sx={{ position: 'fixed', bottom: 10, right: 10 }}
+              sx={{ position: 'fixed', bottom: 10, right: 10, zIndex: 1000 }}
               variant="soft"
               color="primary"
               onClick={() => {

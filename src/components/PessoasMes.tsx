@@ -47,12 +47,30 @@ export default function BarChart({ data, label = '' }: { data: { name: string, t
               beginAtZero: true,
               grid: {
                 display: false
+              },
+              border: {
+                color: theme.palette.mode === 'dark' ? 'white' : 'black',
+              },
+              ticks: {
+                font: {
+                  size: 14,
+                },
+                color: theme.palette.mode === 'dark' ? 'white' : 'black',
               }
             },
             x: {
               type: 'category',
               grid: {
                 display: false
+              },
+              border: {
+                color: theme.palette.mode === 'dark' ? 'white' : 'black',
+              },
+              ticks: {
+                font: {
+                  size: 14,
+                },
+                color: theme.palette.mode === 'dark' ? 'white' : 'black',
               }
             }
           },
