@@ -1,9 +1,11 @@
 import { useRef, useEffect } from 'react';
 import { Chart } from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { useTheme } from '@mui/material/styles';
 
 export default function BarChart({ data, label = '' }: { data: { name: string, tickets: number }[], label?: string }) {
   const chartRef: any = useRef(null);
+  const theme = useTheme();
 
   useEffect(() => {
     // Ordena os dados do maior para o menor com base no número de tickets
@@ -26,11 +28,11 @@ export default function BarChart({ data, label = '' }: { data: { name: string, t
                 '#0a3299', '#517bee', '#14b1f2'
               ],
               datalabels: {
-                color: 'black',
+                color: theme.palette.mode === 'dark' ? 'white' : 'black',
                 anchor: 'end',
                 align: 'top',
                 font: {
-                  family: 'Arial', // Defina a fonte desejada aqui
+                  family: 'Arial',
                   weight: 'bold',
                   size: 18,
                 }
@@ -58,7 +60,7 @@ export default function BarChart({ data, label = '' }: { data: { name: string, t
       })
       chartRef.current.chart = newChart;
     }
-  }, [data, label]);
+  }, [data, label, theme.palette.mode]);
 
   return (
     <canvas ref={chartRef} />
