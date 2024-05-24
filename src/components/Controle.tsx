@@ -26,25 +26,11 @@ const meses = [
   "Dezembro",
 ];
 
-export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos}: { mediaGeral: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number }) {
+export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos, mt }: { mediaGeral: number, mt: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number }) {
 
-  const data = new Date();
   const [mesAtual, setMes] = useState<any[]>([]);
   const [dozeMeses, setDoze] = useState<any[]>([]);
 
-  var last12Months = [];
-
-  for (let i = 0; i < 12; i++) {
-    var month = data.getMonth() - i;
-    var year = data.getFullYear();
-
-    if (month < 0) {
-      month += 12;
-      year -= 1;
-    }
-
-    last12Months.push(`${meses[month]}/${year}`);
-  }
 
   const mes = async () => await chamadosServices.chamadosMes();
   const ano = async () => await chamadosServices.chamadosAno();
@@ -63,7 +49,7 @@ export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos}: {
   const images = [
     {
       grafic: dozeMeses,
-      labels: last12Months.toString().replace(/,/g, ", ")
+      labels: 'Últimos 12 meses'
     },
     {
       grafic: mesAtual,
@@ -89,13 +75,15 @@ export default function ({ mediaGeral, mediaMes, mediaAno, novos, atribuidos}: {
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <Box sx={{ display: "flex", width: "100%", height: '300px', justifyContent: "center", gap: 2 }}>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-          <Card titulo="Chamados Novos" color="#f94668" size="30px" sizeNum="60px" valor={novos}></Card>
-          <Card titulo="Chamados Atribuídos" color="#f26e14" size="30px" sizeNum="60px" valor={atribuidos}></Card>
+          <Card titulo="Chamados Novos" color="#f94668" size="30px" mt={10} sizeNum="60px" valor={novos}></Card>
+          <Card titulo="Chamados Atribuídos" color="#f26e14" size="30px" mt={10} sizeNum="60px" valor={atribuidos}></Card>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <Card titulo="Média de Avaliação do Mês" color="#14b1f2" valor={mediaMes} />
-          {/* <Card titulo="Média de Avaliação" ano={anoatual} color="#517bee" valor={mediaAno} /> */}
-          <Card titulo="Média de Avaliação Geral" color="#0a3299" valor={mediaGeral} />
+          <Card titulo="Média de Avaliação do Ano" ano={anoatual} mt={2} color="#14b1f2" valor={mediaAno} />
+          <Card titulo="Média de Avaliação Geral" color="#517bee" mt={2} valor={mediaGeral} />
+        </Box>
+        <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+          <Card titulo="Média de Avaliação Mensal" size="30px" sizeNum="60px" mt={10} color="#0a3299" valor={mediaMes} />
         </Box>
       </Box>
       <Box>

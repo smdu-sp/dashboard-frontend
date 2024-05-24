@@ -5,7 +5,7 @@ import { Button, Modal, ModalClose, ModalDialog, ModalDialogProps, Stack } from 
 
 import React from "react";
 
-export default function Dashboard({ mediaGeral, mediaMes, mediaAno, novos, atribuidos}: { mediaGeral: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number}) {
+export default function Dashboard({ mediaGeral, mediaMes, mediaAno, novos, atribuidos,}: { mediaGeral: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number}) {
     const [layout, setLayout] = React.useState<ModalDialogProps['layout'] | undefined>(
       undefined,
     );
@@ -27,6 +27,7 @@ export default function Dashboard({ mediaGeral, mediaMes, mediaAno, novos, atrib
             <ModalDialog layout={layout}>
               <ModalClose />
               <Controle
+                mt={0}
                 novos={novos}
                 atribuidos={atribuidos}
                 mediaGeral={mediaGeral}
