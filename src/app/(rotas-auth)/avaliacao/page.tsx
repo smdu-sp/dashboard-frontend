@@ -288,7 +288,6 @@ function SearchUsuarios() {
         onRowsPerPageChange={mudaLimite}
         rowsPerPageOptions={[10, 25, 50, 100]}
         labelRowsPerPage="Registros por página"
-        labelDisplayedRows={({ from, to, count }) => `${from}–${to} de ${count}`}
       /> : null}
     </Content>
   );
