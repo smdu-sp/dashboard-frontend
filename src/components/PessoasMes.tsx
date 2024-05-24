@@ -23,17 +23,16 @@ export default function BarChart({ data, label = '' }: { data: { name: string, t
               label,
               data: sortedData.map((item) => item.tickets),
               backgroundColor: [
-                '#2b3a67',
-                '#496A81',
-                '#66999B'
+                '#0a3299', '#517bee', '#14b1f2'
               ],
               datalabels: {
                 color: 'black',
                 anchor: 'end',
                 align: 'top',
                 font: {
+                  family: 'Arial', // Defina a fonte desejada aqui
                   weight: 'bold',
-                  size: 15,
+                  size: 18,
                 }
               }
             },
