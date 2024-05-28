@@ -53,7 +53,7 @@ export default function Home() {
         titulo='Dashboard SMUL/Suporte'
         pagina='dashboard'
       >
-        {/* <AlertaSonoro chamados={novos.quantidade} /> */}
+        <AlertaSonoro chamados={novos.quantidade} />
         <Dashboard
           novos={novos.quantidade}
           atribuidos={atribuidos.quantidade}
