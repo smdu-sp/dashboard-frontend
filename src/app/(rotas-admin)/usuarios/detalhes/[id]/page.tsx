@@ -24,7 +24,6 @@ export default function UsuarioDetalhes(props: any) {
 
     const permissoes: Record<string, { label: string, value: string, color: OverridableStringUnion<ColorPaletteProp, ChipPropsColorOverrides> | undefined }> = {
         'DEV': { label: 'Desenvolvedor', value: 'DEV', color: 'neutral' },
-        'SUP': { label: 'Superadmin', value: 'SUP', color: 'primary' },
         'ADM': { label: 'Administrador', value: 'ADM', color: 'success' },
         'USR': { label: 'Usuário', value: 'USR', color: 'warning' },
     }
@@ -149,7 +148,6 @@ export default function UsuarioDetalhes(props: any) {
                                 <Select value={permissao ? permissao : 'USR'} onChange={(_, value) => value && setPermissao(value)}
                                     startDecorator={<Badge />}>
                                     <Option value="DEV">Desenvolvedor</Option>
-                                    <Option value="SUP">Superadmin</Option>
                                     <Option value="ADM">Administrador</Option>
                                     <Option value="USR">Usuário</Option>
                                 </Select>
