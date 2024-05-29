@@ -208,6 +208,7 @@ function SearchUsuarios() {
             <th>N° Ticket</th>
             <th>Chamado</th>
             <th>Data Fechamento</th>
+            <th>Requerente</th>
             <th>Técnico</th>
             <th>Avaliação</th>
           </tr>
@@ -219,6 +220,7 @@ function SearchUsuarios() {
                 <td>{avaliacao.Tickets.id}</td>
                 <td>{avaliacao.Tickets.name}</td>
                 <td>{new Date(avaliacao.Tickets.closedate).toLocaleString('pt-BR', { timeZone: 'UTC' }).replace(',', '')}</td>
+                <td>{avaliacao.Tickets.Usuarios[0] ? avaliacao.Tickets.Usuarios[0].user.firstname + ' ' + avaliacao.Tickets.Usuarios[0].user.realname : ''}</td>
                 <td>{avaliacao.Tickets.Usuarios[1] ? avaliacao.Tickets.Usuarios[1].user.firstname + ' ' + avaliacao.Tickets.Usuarios[1].user.realname : ''}</td>
                 <td>
                   {avaliacao.satisfaction != null ? <Rating name="size-large" size="medium" value={avaliacao.satisfaction} readOnly />
@@ -235,7 +237,7 @@ function SearchUsuarios() {
               </tr>
             </Tooltip>
 
-          )) : <tr><td colSpan={5}>Nenhum registro encontrado.</td></tr>}
+          )) : <tr><td colSpan={6}>Nenhum registro encontrado.</td></tr>}
         </tbody>
       </Table>
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -288,6 +290,7 @@ function SearchUsuarios() {
         onRowsPerPageChange={mudaLimite}
         rowsPerPageOptions={[10, 25, 50, 100]}
         labelRowsPerPage="Registros por página"
+        labelDisplayedRows={({ from, to, count }) => `${from}–${to} de ${count}`}
       /> : null}
     </Content>
   );
