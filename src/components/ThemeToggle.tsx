@@ -7,17 +7,17 @@ import { useContext, useEffect, useState } from "react";
 
 export default function ThemeToggle({ ...props }) {
   const [joymode, setJoymode] = useState("light");
-  const [bug, setConfirmaDark] = useState(true);
+  const [confirmaDark, setConfirmaDark] = useState(true);
   const { mode, toggleMode } = useContext(ThemeContext);
   useEffect(() => {
     const joymode = localStorage.getItem("joy-mode");
     setJoymode(joymode || "light");
   }, [toggleMode, joymode]);
-  window.onload = () => {
-    if (joymode === "dark" && bug === true) {
-      toggleMode()
-      setConfirmaDark(false);
-    }
+  if (typeof window !== "undefined") {
+      if (joymode === "dark" && confirmaDark === true) {
+        toggleMode()
+        setConfirmaDark(false);
+      }
   }
   return (
     <IconButton
