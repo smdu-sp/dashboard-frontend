@@ -9,38 +9,35 @@ export interface IMenuOption {
 };
 
 export interface IMenu {
-    userOptions:    IMenuOption[];
     adminOptions:   IMenuOption[];
+    userOptions:    IMenuOption[];
+    devOptions:     IMenuOption[];
 }
 
 
 export const menu: IMenu = {
-    userOptions: [
+    adminOptions: [
         {
-            title: 'Página Inicial',
+            title: 'Dashboard',
             href: '/',
             name: '/',
-            icon: Home,
-        },
+            icon: Dashboard,
+        }        
+    ],
+    userOptions: [
         {
             title: 'Tickets para avaliar',
             href: '/avaliacao',
             name: 'avaliacao',
             icon: StarIcon,
-        },
+        }
     ],
-    adminOptions: [
+    devOptions: [
         {
             title: 'Usuários',
             href: '/usuarios',
             name: 'usuarios',
             icon: Person,
-        },
-        {
-            title: 'Dashboard',
-            href: '/dashboard',
-            name: 'dashboard',
-            icon: Dashboard,
-        }            
+        }         
     ]
 }

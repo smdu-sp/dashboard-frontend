@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Content from '@/components/Content';
 import Controle from '@/components/Controle';
-import Dashboard from './Dashboard';
+import Dashboard from '../../components/Dashboard';
 import * as chamadosServices from '@/shared/services/chamados.services';
 import AlertaSonoro from '@/components/alertaSonoro';
 import { Box } from '@mui/material';

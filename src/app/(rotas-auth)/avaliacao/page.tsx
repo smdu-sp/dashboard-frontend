@@ -209,11 +209,11 @@ function SearchUsuarios() {
             <th>Chamado</th>
             <th>Data Fechamento</th>
             <th>Técnico</th>
-            <th>Avalicão</th>
+            <th>Avaliação</th>
           </tr>
         </thead>
         <tbody>
-          {(avaliacao && avaliacao.length > 0) && avaliacao.map((avaliacao) => (
+          {(avaliacao && avaliacao.length > 0) ? avaliacao.map((avaliacao) => (
             <Tooltip color='transparent' title={avaliacao.comment != null ? avaliacao.comment : ''} followCursor key={avaliacao.id}>
               <tr key={avaliacao.id} className="cursor-pointer !important" >
                 <td>{avaliacao.Tickets.id}</td>
@@ -235,7 +235,7 @@ function SearchUsuarios() {
               </tr>
             </Tooltip>
 
-          ))}
+          )) : <tr><td colSpan={5}>Nenhum registro encontrado.</td></tr>}
         </tbody>
       </Table>
       <Modal open={open} onClose={() => setOpen(false)}>
