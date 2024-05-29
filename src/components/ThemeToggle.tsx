@@ -11,7 +11,7 @@ export default function ThemeToggle({ ...props }) {
   const { mode, toggleMode } = useContext(ThemeContext);
   useEffect(() => {
     const joymode = localStorage.getItem("joy-mode");
-    setJoymode(joymode || "light");
+    joymode && setJoymode(joymode);
   }, [toggleMode, joymode]);
   if (typeof window !== "undefined") {
       if (joymode === "dark" && confirmaDark === true) {
