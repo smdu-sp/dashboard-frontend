@@ -11,12 +11,12 @@ import {
 } from '@mui/material/styles';
 import { CssVarsProvider as JoyCssVarsProvider, extendTheme } from '@mui/joy/styles';
 import ThemeProvider from '@/shared/contexts/ThemeContext';
-// import { Lato } from 'next/font/google';
-// const lato = Lato({
-//   weight: ["300", "400", "700", "900"],
-//   style: ["normal", "italic"],
-//   subsets: ["latin"],
-// });
+import { Lato } from 'next/font/google';
+const lato = Lato({
+  weight: ["300", "400", "700", "900"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
 
 const materialTheme = materialExtendTheme({
   colorSchemes: {
@@ -57,8 +57,8 @@ const materialTheme = materialExtendTheme({
 
 const theme = extendTheme({
   fontFamily: {
-    display: 'Calibri', // applies to `h1`–`h4`
-    body: 'Calibri', // applies to `title-*` and `body-*`
+    display: lato.style.fontFamily, // applies to `h1`–`h4`
+    body: lato.style.fontFamily, // applies to `title-*` and `body-*`
   },
   "colorSchemes": {
     "dark": {
