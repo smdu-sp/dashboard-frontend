@@ -57,8 +57,8 @@ const materialTheme = materialExtendTheme({
 
 const theme = extendTheme({
   fontFamily: {
-    display: lato.style.fontFamily, // applies to `h1`–`h4`
-    body: lato.style.fontFamily, // applies to `title-*` and `body-*`
+    display: 'Calibri', // applies to `h1`–`h4`
+    body: 'Calibri', // applies to `title-*` and `body-*`
   },
   "colorSchemes": {
     "dark": {
