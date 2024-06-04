@@ -12,11 +12,11 @@ import {
 import { CssVarsProvider as JoyCssVarsProvider, extendTheme } from '@mui/joy/styles';
 import ThemeProvider from '@/shared/contexts/ThemeContext';
 import { Lato } from 'next/font/google';
-const lato = Lato({
-  weight: ["300", "400", "700", "900"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-});
+// const lato = Lato({
+//   weight: ["300", "400", "700", "900"],
+//   style: ["normal", "italic"],
+//   subsets: ["latin"],
+// });
 
 const materialTheme = materialExtendTheme({
   colorSchemes: {
