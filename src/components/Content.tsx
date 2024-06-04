@@ -28,7 +28,7 @@ export default function Content({
     menuOverride?: IMenu;
 }) {
   useEffect(() => {
-    document.title = titulo + ' | ' + (process.env.NEXT_PUBLIC_PROJECT_NAME || 'SISAR');
+    document.title = titulo + ' | ' + (process.env.NEXT_PUBLIC_PROJECT_NAME || 'DASHBOARD');
   }, []);
   return (
     <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
