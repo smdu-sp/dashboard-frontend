@@ -9,8 +9,8 @@ export interface ICreateAvaliacao {
     id_usuario: string;
 }
 export interface UsuarioGlpi {
-    id: number;
-    name: string;
+    id?: number;
+    name?: string;
     firstname: string;
     realname: string;
 }
@@ -45,6 +45,11 @@ export interface IPaginadoAvaliacoes {
 
 export interface ChamadosAvaliados {
     satisfaction?: number;
+}
+
+export interface UltimosChamados {
+    name: string;
+    user: UsuarioGlpi;
 }
 
 const baseURL = process.env.API_URL || 'http://localhost:3000/';
@@ -254,6 +259,21 @@ async function avaliarSeteDias(){
     return avaliacao;
 }
 
+async function ultimoChamado(): Promise<UltimosChamados>{
+    const session = await getServerSession(authOptions);
+    const avaliacao = await fetch(`${baseURL}chamados/ultimo`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token}`
+        }
+    }).then((response) => {
+        if (response.status === 401) signOut();
+        return response.json();
+    })
+    return avaliacao;
+}
+
 export { 
     criar, 
     buscar, 
@@ -267,5 +287,6 @@ export {
     chamadosAvaliadosNoAno,
     chamadosAvaliadosNoMes,
     buscarTudo,
-    avaliarSeteDias
+    avaliarSeteDias,
+    ultimoChamado
 }

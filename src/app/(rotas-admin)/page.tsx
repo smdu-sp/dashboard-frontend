@@ -6,6 +6,7 @@ import Content from '@/components/Content';
 import Controle from '@/components/Controle';
 import Dashboard from '../../components/Dashboard';
 import * as chamadosServices from '@/shared/services/chamados.services';
+import {UltimosChamados} from '@/shared/services/chamados.services';
 import AlertaSonoro from '@/components/alertaSonoro';
 import { Box } from '@mui/material';
 
@@ -15,30 +16,32 @@ export default function Home() {
   const [mediaGeral, setMediaGeral] = useState([]);
   const [mediaMes, setMediaMes] = useState([]);
   const [mediaAno, setMediaAno] = useState([]);
+  const [chamado, setChamado] = useState({});
 
   useEffect(() => {
 
     const fetchData = async () => {
-
-
       const novosData = await chamadosServices.chamadosNovos();
       const atribuidosData = await chamadosServices.chamadosAtribuidos();
       const avaliadosData = await chamadosServices.chamadosAvaliados();
       const avaliadosNoMesData = await chamadosServices.chamadosAvaliadosNoMes();
       const avaliadosNoAnoData = await chamadosServices.chamadosAvaliadosNoAno();
+      await chamadosServices.ultimoChamado()
+        .then((response: UltimosChamados) => {
+          setChamado(response)
+        })
+
 
       setNovos(novosData);
       setAtribuidos(atribuidosData);
       setMediaGeral(avaliadosData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
       setMediaMes(avaliadosNoMesData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
       setMediaAno(avaliadosNoAnoData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
-
-      chamadosServices.avaliarSeteDias();
     };
-
+    
     fetchData();
 
-    const interval = setInterval(fetchData, 60000);
+    const interval = setInterval(fetchData, 61000);
 
     return () => clearInterval(interval);
   }, []);
@@ -60,6 +63,7 @@ export default function Home() {
           mediaGeral={calcularMedia(mediaGeral)}
           mediaMes={calcularMedia(mediaMes)}
           mediaAno={calcularMedia(mediaAno)}
+          chamado={chamado}
         />
         <Controle
           mt={0}
@@ -68,6 +72,7 @@ export default function Home() {
           mediaGeral={calcularMedia(mediaGeral)}
           mediaMes={calcularMedia(mediaMes)}
           mediaAno={calcularMedia(mediaAno)}
+          chamado={chamado}
         />
         <div style={{ marginTop: '70px', display: 'flex ' }}>
           <div style={{ width: '60%' }}>
