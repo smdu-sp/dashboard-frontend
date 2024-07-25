@@ -17,6 +17,7 @@ import DialogContent from '@mui/joy/DialogContent';
 import * as usuarioServices from "@/shared/services/usuario.services";
 import { IUsuario } from "@/shared/services/usuario.services";
 import { AlertsContext } from "@/providers/alertsProvider";
+import Usuarios from '@/app/(rotas-admin)/usuarios/page';
 
 export default function Avaliacao() {
   return (
@@ -224,11 +225,11 @@ function SearchUsuarios() {
                 <td>{avaliacao.Tickets.Usuarios[1] ? avaliacao.Tickets.Usuarios[1].user.firstname + ' ' + avaliacao.Tickets.Usuarios[1].user.realname : ''}</td>
                 <td>
                   {avaliacao.satisfaction != null ? <Rating name="size-large" size="medium" value={avaliacao.satisfaction} readOnly />
-                    : <Button variant="soft" color="danger" disabled={usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name.toLocaleLowerCase() ? false : true} onClick={() => {
+                    : <Button variant="soft" color="danger" disabled={usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name?.toLocaleLowerCase() ? false : true} onClick={() => {
                       setId(avaliacao.id.toString());
                       setName(avaliacao.Tickets.name);
                       setTicket(avaliacao.Tickets.id)
-                      usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name.toLocaleLowerCase() ?
+                      usuario != null && usuario.login == avaliacao.Tickets.Usuarios[0].user.name?.toLocaleLowerCase() ?
                         (avaliacao.satisfaction == 0 || avaliacao.satisfaction == null ? setOpen(true) : setAlert('Tente novamente!', 'Chamado ja avaliado.', 'danger', 3000, Check)) :
                         setAlert('Tente novamente!', 'Voce não pode avaliar o chamado de outro usuário.', 'danger', 3000, Check);
                     }}>Avaliar
