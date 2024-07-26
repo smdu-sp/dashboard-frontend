@@ -2,12 +2,10 @@
 
 import Controle from "@/components/Controle";
 import { Button, Modal, ModalClose, ModalDialog, ModalDialogProps, Stack } from "@mui/joy";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 import React from "react";
 
 export default function Dashboard({ mediaGeral, mediaMes, mediaAno, novos, atribuidos, chamado}: { mediaGeral: number, mediaMes: number, mediaAno: number, novos: number, atribuidos: number, chamado: any}) {
-  const handle = useFullScreenHandle();  
   const [layout, setLayout] = React.useState<ModalDialogProps['layout'] | undefined>(
       undefined,
     );
