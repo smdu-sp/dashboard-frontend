@@ -6,9 +6,10 @@ import Content from '@/components/Content';
 import Controle from '@/components/Controle';
 import Dashboard from '../../components/Dashboard';
 import * as chamadosServices from '@/shared/services/chamados.services';
-import {UltimosChamados} from '@/shared/services/chamados.services';
+import { UltimosChamados } from '@/shared/services/chamados.services';
 import AlertaSonoro from '@/components/alertaSonoro';
 import { Box } from '@mui/material';
+import DashboardInicial from '@/components/DashboardInicial';
 
 export default function Home() {
   const [novos, setNovos] = useState({ quantidade: 0 });
@@ -38,7 +39,7 @@ export default function Home() {
       setMediaMes(avaliadosNoMesData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
       setMediaAno(avaliadosNoAnoData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
     };
-    
+
     fetchData();
 
     const interval = setInterval(fetchData, 61000);
@@ -65,8 +66,7 @@ export default function Home() {
           mediaAno={calcularMedia(mediaAno)}
           chamado={chamado}
         />
-        <Controle
-          mt={0}
+        <DashboardInicial
           novos={novos.quantidade}
           atribuidos={atribuidos.quantidade}
           mediaGeral={calcularMedia(mediaGeral)}
