@@ -85,7 +85,7 @@ export default function Controle({ mediaGeral, mediaMes, mediaAno, novos, atribu
               <Card titulo="Média de Avaliação Geral" color="#517bee" mt={2} valor={isNaN(mediaGeral) ? 0 : mediaGeral} />
             </Box>
             <Card titulo="Média de Avaliação Mensal" size="30px" sizeNum="60px" mt={10} color="#0a3299" valor={isNaN(mediaMes) ? 0 : mediaMes} />
-            <CardChamado nome={(chamado.Usuarios != undefined ? chamado.Usuarios[0].user.firstname : '') + " " + (chamado.Usuarios != undefined ? chamado.Usuarios[0].user.realname : '')} descricao={chamado.name} />
+            <CardChamado minWidth='300' nome={(chamado.Usuarios != undefined ? chamado.Usuarios[0].user.firstname : '') + " " + (chamado.Usuarios != undefined ? chamado.Usuarios[0].user.realname : '')} descricao={chamado.name} />
           </Box>
           <Box>
             <Box sx={{ maxWidth: 1200, maxHeight: 300, flexGrow: 1 }}>
