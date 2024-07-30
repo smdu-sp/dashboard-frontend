@@ -38,6 +38,6 @@ export const menu: IMenu = {
             href: '/usuarios',
             name: 'usuarios',
             icon: Person,
-        }         
+        }
     ]
 }

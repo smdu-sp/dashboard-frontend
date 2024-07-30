@@ -7,7 +7,7 @@ import { Chip } from '@mui/joy';
 interface Chamado {
   nome: string
   descricao: string
-  minWidth: string
+  width: string
 }
 
 export default function CardChamado(props: Chamado) {
@@ -16,7 +16,7 @@ export default function CardChamado(props: Chamado) {
       sx={{
         bgcolor: '#517bee',
         borderRadius: 10,
-        minWidth: props.minWidth,
+        width: props.width,
         height: 295,
         marginTop: '5px',
         marginLeft: '5px',

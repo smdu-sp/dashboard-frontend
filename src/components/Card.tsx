@@ -9,7 +9,7 @@ export default function CardDashboard(props: any) {
      sx={{
         bgcolor: props.color,
         borderRadius: 10,
-        minWidth: props.minWidth,
+        width: props.width,
         maxHeight: '100%',
         height: 295,
         marginTop: '5px',

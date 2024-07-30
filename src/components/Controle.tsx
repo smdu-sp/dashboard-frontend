@@ -75,8 +75,8 @@ export default function Controle({ mediaGeral, mediaMes, mediaAno, novos, atribu
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <Box sx={{ display: "flex", width: "120%", justifyContent: "center", gap: 2}}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: '300px', height: '900px' }}>
-          <Card titulo="Chamados Novos" color="#f94668" size="30px" mt={10} sizeNum="90px" valor={novos}></Card>
-          <Card titulo="Chamados Atribuídos" color="#f26e14" size="30px" mt={10} sizeNum="90px" valor={atribuidos}></Card>
+          <Card titulo="Chamados Novos" width="380" color="#f94668" size="30px" mt={10} sizeNum="90px" valor={novos}></Card>
+          <Card titulo="Chamados Atribuídos"  width="480" color="#f26e14" size="30px" mt={10} sizeNum="90px" valor={atribuidos}></Card>
         </Box>
         <Box>
           <Box sx={{ display: "flex", flexDirection: "row", gap: 2, height: '300px', justifyContent: 'center' }}>
@@ -85,7 +85,7 @@ export default function Controle({ mediaGeral, mediaMes, mediaAno, novos, atribu
               <Card titulo="Média de Avaliação Geral" color="#517bee" mt={2} valor={isNaN(mediaGeral) ? 0 : mediaGeral} />
             </Box>
             <Card titulo="Média de Avaliação Mensal" size="30px" sizeNum="60px" mt={10} color="#0a3299" valor={isNaN(mediaMes) ? 0 : mediaMes} />
-            <CardChamado minWidth='300' nome={(chamado.Usuarios != undefined ? chamado.Usuarios[0].user.firstname : '') + " " + (chamado.Usuarios != undefined ? chamado.Usuarios[0].user.realname : '')} descricao={chamado.name} />
+            <CardChamado width="350px" nome={(chamado.Usuarios != undefined ? chamado.Usuarios[0].user.firstname : '') + " " + (chamado.Usuarios != undefined ? chamado.Usuarios[0].user.realname : '')} descricao={chamado.name} />
           </Box>
           <Box>
             <Box sx={{ maxWidth: 1200, maxHeight: 300, flexGrow: 1 }}>
