@@ -72,7 +72,8 @@ export default function BarChart({ data, label = '' }: { data: { name: string, t
                 },
                 color: theme.palette.mode === 'dark' ? 'white' : 'black',
               }
-            }
+            },
+
           },
         },
       })
