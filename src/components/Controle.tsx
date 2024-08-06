@@ -37,7 +37,7 @@ export default function Controle({ mediaGeral, mediaMes, mediaAno, novos, atribu
   const ano = async () => await chamadosServices.chamadosAno();
 
   useEffect(() => {
-    // Resolva as promessas aqui e atualize o estado
+
     async function fetchData() {
       const mesData = await mes();
       const anoData = await ano();
@@ -45,6 +45,9 @@ export default function Controle({ mediaGeral, mediaMes, mediaAno, novos, atribu
       setDoze(anoData);
     }
     fetchData();
+
+    const interval = setInterval(fetchData, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   const images = [
