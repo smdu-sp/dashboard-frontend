@@ -43,6 +43,7 @@ export default function Controle({ mediaGeral, mediaMes, mediaAno, novos, atribu
       const anoData = await ano();
       setMes(mesData);
       setDoze(anoData);
+      setActiveStep(activeStep === 0 ? 1 : 0)
     }
     fetchData();
 
