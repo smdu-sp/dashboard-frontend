@@ -3,6 +3,8 @@
 import { authOptions } from "@/shared/auth/authOptions";
 import { getServerSession } from "next-auth";
 import { signOut } from "next-auth/react";
+
+
 export interface ICreateAvaliacao {
     avaliacao: string;
     comentario: string;
@@ -273,7 +275,6 @@ async function ultimoChamado(): Promise<UltimosChamados>{
     })
     return avaliacao;
 }
-
 export { 
     criar, 
     buscar, 
@@ -288,5 +289,5 @@ export {
     chamadosAvaliadosNoMes,
     buscarTudo,
     avaliarSeteDias,
-    ultimoChamado
+    ultimoChamado,
 }

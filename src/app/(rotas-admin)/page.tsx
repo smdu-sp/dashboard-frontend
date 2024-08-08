@@ -10,6 +10,7 @@ import { UltimosChamados } from '@/shared/services/chamados.services';
 import AlertaSonoro from '@/components/alertaSonoro';
 import { Box } from '@mui/material';
 import DashboardInicial from '@/components/DashboardInicial';
+import { Button } from '@mui/joy';
 
 export default function Home() {
   const [novos, setNovos] = useState({ quantidade: 0 });
@@ -18,6 +19,7 @@ export default function Home() {
   const [mediaMes, setMediaMes] = useState([]);
   const [mediaAno, setMediaAno] = useState([]);
   const [chamado, setChamado] = useState({});
+
 
   useEffect(() => {
 
@@ -31,8 +33,6 @@ export default function Home() {
         .then((response: UltimosChamados) => {
           setChamado(response)
         })
-
-
       setNovos(novosData);
       setAtribuidos(atribuidosData);
       setMediaGeral(avaliadosData.filter((chamado: { satisfaction?: any }) => chamado.satisfaction !== null).map((chamado: { satisfaction: any }) => chamado.satisfaction));
@@ -48,7 +48,6 @@ export default function Home() {
 
   }, []);
 
-
   return (
     <Box>
       <Content
@@ -58,7 +57,7 @@ export default function Home() {
         titulo='Dashboard SMUL/Suporte'
         pagina='dashboard'
       >
-        <AlertaSonoro chamados={novos.quantidade} />
+
         <Dashboard
           novos={novos.quantidade}
           atribuidos={atribuidos.quantidade}
