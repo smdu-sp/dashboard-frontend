@@ -1,4 +1,4 @@
-import { Dashboard, Business, Handyman, Home, Person } from '@mui/icons-material';
+import { Dashboard, Business, Handyman, Home, Person, FileOpen } from '@mui/icons-material';
 import StarIcon from '@mui/icons-material/Star';
 
 export interface IMenuOption {
@@ -22,6 +22,12 @@ export const menu: IMenu = {
             href: '/',
             name: '/',
             icon: Dashboard,
+        },
+        {
+            title: 'Relatórios',
+            href: '/relatorios',
+            name: 'relatorios',
+            icon: FileOpen,
         }        
     ],
     userOptions: [
