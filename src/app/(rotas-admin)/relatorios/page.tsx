@@ -19,14 +19,15 @@ function BuscaRelatorios(){
   const tableRef = useRef<HTMLDivElement>(null);
 
   const [ relatorio, setRelatorio ] = useState<string>("");
-  const [ ano_inicio, setAnoInicio ] = useState<number>(2024);
-  const [ ano_fim, setAnoFim ] = useState<number>(2024);
+  const [ ano_inicio, setAnoInicio ] = useState<number>(2020);
+  const [ ano_fim, setAnoFim ] = useState<number>(new Date().getFullYear());
   const [ dataRelatorio, setDataRelatorio] = useState<any[]>([]);
   const [ anos, setAnos ] = useState<number[]>([]);
+  const [ mediaResolucao, setMediaResolucao ] = useState<number>(0);
 
   useEffect(() => {
     let anos = [];
-    for (let i = 2024; i <= new Date().getFullYear(); i++){
+    for (let i = 2020; i <= new Date().getFullYear(); i++){
       anos.push(i);
     }
     setAnos(anos);
@@ -38,6 +39,9 @@ function BuscaRelatorios(){
         relatorioServices.listarChamadosPeriodoAno(ano_inicio, ano_fim)
         .then((response: any[]) => {
           setDataRelatorio(response);
+          const chamadosResolvidos = response.filter((chamado) => chamado['Tempo para resolução'] > 0);
+          const mediaResolucao = chamadosResolvidos.reduce((acc, chamado) => acc + chamado['Tempo para resolução'], 0) / chamadosResolvidos.length;
+          setMediaResolucao(mediaResolucao);
         })
         break;
     }

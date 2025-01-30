@@ -27,6 +27,16 @@ const RenderMenu = (menu: IMenu, pagina?: string) => {
         }}
       >        
         <ListSubheader sx={{ lineHeight: 2, borderRadius: 2, backgroundColor: 'transparent' }}>Menu</ListSubheader>
+        {menu.userOptions.map((page) => (
+          <ListItem sx={{width: '100%'}} key={page.name}>
+            <ListItemButton component={Link} underline="none" selected={pagina===page.name} href={page.href}>
+              <ListItemDecorator>
+                <SvgIcon component={page.icon} />
+              </ListItemDecorator>
+              <ListItemContent>{page.title}</ListItemContent>
+            </ListItemButton>
+          </ListItem>
+        ))}
         {['DEV', 'ADM'].includes(permissao) ? menu.adminOptions.map((page) => (
           <ListItem sx={{width: '100%'}} key={page.name}>
             <ListItemButton component={Link} underline="none" selected={pagina===page.name} href={page.href}>
@@ -38,16 +48,6 @@ const RenderMenu = (menu: IMenu, pagina?: string) => {
           </ListItem>
           
         )) : null}
-        {menu.userOptions.map((page) => (
-          <ListItem sx={{width: '100%'}} key={page.name}>
-            <ListItemButton component={Link} underline="none" selected={pagina===page.name} href={page.href}>
-              <ListItemDecorator>
-                <SvgIcon component={page.icon} />
-              </ListItemDecorator>
-              <ListItemContent>{page.title}</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-        ))}
         {['DEV'].includes(permissao) ? <ListDivider inset={'gutter'} /> : null}
         {['DEV'].includes(permissao) ? <ListSubheader sx={{ lineHeight: 2, borderRadius: 2, backgroundColor: 'transparent' }}>Administração</ListSubheader> : null}
         {['DEV'].includes(permissao) ? menu.devOptions.map((page) => (
